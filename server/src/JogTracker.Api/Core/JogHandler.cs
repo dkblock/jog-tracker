@@ -12,7 +12,7 @@ namespace JogTracker.Api.Core
         Jog CreateJog(JogPayload jogPayload);
         bool IsJogExist(int id);
         Jog GetJogById(int id);
-        IEnumerable<Jog> GetJogsByQuery(JogQuery query);
+        PageResponse<Jog> GetJogsByQuery(JogQuery query);
         void DeleteJog(int id);
     }
 
@@ -48,10 +48,15 @@ namespace JogTracker.Api.Core
             return BuildJog(jogEntity);
         }
 
-        public IEnumerable<Jog> GetJogsByQuery(JogQuery query)
+        public PageResponse<Jog> GetJogsByQuery(JogQuery query)
         {
-            var jogEntities = _jogService.GetJogsByQuery(query);
-            return jogEntities.Select(j => BuildJog(j));
+            var jogsPage = _jogService.GetJogsByQuery(query);
+
+            return new PageResponse<Jog>
+            {
+                Page = jogsPage.Page.Select(j => BuildJog(j)),
+                TotalCount = jogsPage.TotalCount
+            };
         }
         
         public void DeleteJog(int id)

@@ -1,0 +1,21 @@
+.loader {
+  &--xs {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  &--sm {
+    width: 25px !important;
+    height: 25px !important;
+  }
+
+  &--md {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  &--lg {
+    width: 75px !important;
+    height: 75px !important;
+  }
+}

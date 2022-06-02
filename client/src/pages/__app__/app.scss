@@ -1,0 +1,45 @@
+.app-content {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  background-color: #fff;
+  width: 100%;
+  height: 45px;
+  font-size: 12px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 999;
+
+  &__section {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    margin-left: 12px;
+    cursor: pointer;
+    height: 40px;
+  }
+
+  &__menu {
+    padding: 5px 0;
+  }
+
+  &__avatar {
+    cursor: pointer;
+    margin-right: 12px;
+  }
+
+  &__menu-divider {
+    margin: 5px 2px;
+    width: 100%;
+    height: 1px;
+    background: rgba(18, 24, 33, 0.12);
+  }
+}

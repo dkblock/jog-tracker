@@ -11,7 +11,7 @@ namespace JogTracker.Services
         JogEntity CreateJog(JogEntity jog);
         bool IsJogExist(int id);
         JogEntity GetJogById(int id);
-        IEnumerable<JogEntity> GetJogsByQuery(JogQuery query);
+        PageResponse<JogEntity> GetJogsByQuery(JogQuery query);
         void DeleteJog(int id);
     }
 
@@ -42,7 +42,7 @@ namespace JogTracker.Services
             return _repository.GetWithInclude(j => j.Id == id, j => j.User).Single();
         }
 
-        public IEnumerable<JogEntity> GetJogsByQuery(JogQuery query)
+        public PageResponse<JogEntity> GetJogsByQuery(JogQuery query)
         {
             var dbQuery = new DbQuery<JogEntity>(
                 j => IsMatchQuery(j, query),
@@ -51,7 +51,7 @@ namespace JogTracker.Services
                 query.PageSize,
                 query.PageIndex);
 
-            return _repository.GetByQuery(dbQuery);
+            return _repository.GetByQuery(dbQuery, j => j.User);
         }
 
         public void DeleteJog(int id)
@@ -78,7 +78,7 @@ namespace JogTracker.Services
                 $"{jog.User.LastName} {jog.User.FirstName}",
             };
 
-            if (_queryHelper.IsMatch(query.SearchText, filters))
+            if (!_queryHelper.IsMatch(query.SearchText, filters))
                 return false;
 
             if ((query.DateFrom.HasValue && jog.Date < query.DateFrom) || (query.DateTo.HasValue && jog.Date > query.DateTo))

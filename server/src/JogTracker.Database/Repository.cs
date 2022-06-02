@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JogTracker.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace JogTracker.Database
         TEntity Get(object id);
         IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate);
         IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
-        IEnumerable<TEntity> GetByQuery(DbQuery<TEntity> query, params Expression<Func<TEntity, object>>[] includeProperties);
+        IEnumerable<TEntity> GetWithInclude(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
+        PageResponse<TEntity> GetByQuery(DbQuery<TEntity> query, params Expression<Func<TEntity, object>>[] includeProperties);
         void Delete(object id);
         void Update(object id, TEntity entity);
     }
@@ -50,21 +52,30 @@ namespace JogTracker.Database
         public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
         {
             return _entities.Where(predicate).ToList();
-        }
+        }        
 
         public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return Include(includeProperties);
         }
 
-        public IEnumerable<TEntity> GetByQuery(DbQuery<TEntity> query, params Expression<Func<TEntity, object>>[] includeProperties)
+        public IEnumerable<TEntity> GetWithInclude(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return Include(includeProperties).Where(predicate);
+        }
+
+        public PageResponse<TEntity> GetByQuery(DbQuery<TEntity> query, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var entities = Include(includeProperties).Where(query.SearchPredicate);
             var sortedEntities = query.SortByDesc
                 ? entities.OrderByDescending(query.SortBy)
                 : entities.OrderBy(query.SortBy);
 
-            return sortedEntities.Skip(query.PageSize * (query.PageIndex - 1));
+            return new PageResponse<TEntity>
+            {
+                Page = sortedEntities.Skip(query.PageSize * (query.PageIndex - 1)),
+                TotalCount = sortedEntities.Count(),
+            };
         }
 
         public void Delete(object id)

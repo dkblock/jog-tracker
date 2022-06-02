@@ -63,9 +63,9 @@ namespace JogTracker.Api.Controllers
             bool desc = true)
         {
             var query = new JogQuery(searchText, dateFrom, dateTo, pageSize, pageIndex, sortBy, desc);
-            var jogs = _jogHandler.GetJogsByQuery(query);
+            var jogsResponse = _jogHandler.GetJogsByQuery(query);
             
-            return Ok(jogs);
+            return Ok(jogsResponse);
         }
 
         [HttpDelete]
