@@ -2,7 +2,7 @@
 
 namespace JogTracker.Configuration
 {
-    public static class IServiceCollectionExtension
+    public static class ServiceLocator
     {
         public static void AddConfiguration(this IServiceCollection services)
         {

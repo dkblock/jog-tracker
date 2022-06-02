@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace JogTracker.Database
 {
-    public static class IServiceCollectionExtension
+    public static class ServiceLocator
     {
         public static void AddDatabase(this IServiceCollection services)
         {
@@ -20,7 +20,7 @@ namespace JogTracker.Database
             InitializeDatabase(services);
         }
 
-        private static void InitializeDatabase(this IServiceCollection services)
+        private static void InitializeDatabase(IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
             var userManager = serviceProvider.GetRequiredService<UserManager<UserEntity>>();

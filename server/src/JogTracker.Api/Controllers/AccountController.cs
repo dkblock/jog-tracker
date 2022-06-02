@@ -1,7 +1,6 @@
 ﻿using JogTracker.Api.Core;
 using JogTracker.Api.Validation;
 using JogTracker.Models.Account;
-using JogTracker.Models.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -47,15 +46,6 @@ namespace JogTracker.Api.Controllers
 
             var authResponse = await _accountHandler.Login(loginPayload);
             return Ok(authResponse);
-        }
-
-        [HttpPost]
-        [Route("test")]
-        [Authorize]
-        public IActionResult Test([FromBody] LoginPayload loginPayload)
-        {
-            _accountHandler.Test(loginPayload.Password);
-            return Ok();
         }
     }
 }

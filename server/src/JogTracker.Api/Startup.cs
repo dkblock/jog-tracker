@@ -45,9 +45,7 @@ namespace JogTracker.Server
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseIdentityMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

@@ -12,9 +12,10 @@ namespace JogTracker.Database
         bool Exists(object id);
         TEntity Get(object id);
         IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate);
-        IQueryable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
+        IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
+        IEnumerable<TEntity> GetByQuery(DbQuery<TEntity> query, params Expression<Func<TEntity, object>>[] includeProperties);
         void Delete(object id);
-        TEntity Update(object id, TEntity entity);
+        void Update(object id, TEntity entity);
     }
 
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
@@ -30,7 +31,7 @@ namespace JogTracker.Database
 
         public TEntity Create(TEntity entity)
         {
-            var result =  _entities.Add(entity);
+            var result = _entities.Add(entity);
             _context.SaveChanges();
 
             return result.Entity;
@@ -51,9 +52,19 @@ namespace JogTracker.Database
             return _entities.Where(predicate).ToList();
         }
 
-        public IQueryable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
+        public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return Include(includeProperties);
+        }
+
+        public IEnumerable<TEntity> GetByQuery(DbQuery<TEntity> query, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var entities = Include(includeProperties).Where(query.SearchPredicate);
+            var sortedEntities = query.SortByDesc
+                ? entities.OrderByDescending(query.SortBy)
+                : entities.OrderBy(query.SortBy);
+
+            return sortedEntities.Skip(query.PageSize * (query.PageIndex - 1));
         }
 
         public void Delete(object id)
@@ -63,15 +74,13 @@ namespace JogTracker.Database
             _context.SaveChanges();
         }
 
-        public TEntity Update(object id, TEntity entity)
+        public void Update(object id, TEntity entity)
         {
             var entityToUpdate = Get(id);
 
             _context.Entry(entityToUpdate).CurrentValues.SetValues(entity);
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
-
-            return Get(id);
         }
 
         private IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)

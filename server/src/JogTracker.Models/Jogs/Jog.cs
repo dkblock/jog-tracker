@@ -9,6 +9,8 @@ namespace JogTracker.Models.Jogs
         public DateTime Date { get; set; }
         public double DistanceInMeters { get; set; }
         public double DistanceInKilometers { get; set; }
+        public double AverageSpeedInMetersPerSecond { get; set; }
+        public double AverageSpeedInKilometersPerHour { get; set; }
         public JogTime ElapsedTime { get; set; }
         public User User { get; set; }
     }

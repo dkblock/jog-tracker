@@ -2,7 +2,7 @@
 
 namespace JogTracker.Mappers
 {
-    public static class IServiceCollectionExtension
+    public static class ServiceLocator
     {
         public static void AddMappers(this IServiceCollection services)
         {

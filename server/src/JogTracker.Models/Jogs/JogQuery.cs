@@ -33,9 +33,11 @@ namespace JogTracker.Models.Jogs
 
     public enum JogSortBy
     {
-        Id,
         Name,
-        UsersCount,
-        IsAvailableForRegister
+        Username,
+        Date,
+        Distance,
+        ElapsedTime,
+        AverageSpeed,
     }
 }

@@ -20,7 +20,6 @@ namespace JogTracker.Configuration
             Secret = GetValue("Identity__Secret"),
             AccessTokenLifetimeInMinutes = int.Parse(GetValue("Identity__AccessTokenLifetimeInMinutes")),
             RefreshTokenLifetimeInDays = int.Parse(GetValue("Identity__RefreshTokenLifetimeInDays")),
-            Issuer = GetValue("Identity__Issuer"),
             AdministratorPassword = GetValue("Identity__AdministratorPassword")
         };
 

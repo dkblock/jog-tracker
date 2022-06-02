@@ -2,6 +2,7 @@
 using JogTracker.Database;
 using JogTracker.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -10,7 +11,7 @@ using System.Text;
 
 namespace JogTracker.Identity
 {
-    public static class IServiceCollectionExtension
+    public static class ServiceLocator
     {
         public static void AddIdentityServices(this IServiceCollection services)
         {
@@ -49,6 +50,14 @@ namespace JogTracker.Identity
             });
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUserContext, UserContext>();
+        }
+
+        public static void UseIdentityMiddleware(this IApplicationBuilder app)
+        {
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseMiddleware<IdentityMiddleware>();
         }
     }
 }

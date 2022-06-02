@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace JogTracker.Api
 {
-    public static class IServiceCollectionExtension
+    public static class ServiceLocator
     {
         public static void AddCoreServices(this IServiceCollection services)
         {

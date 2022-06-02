@@ -13,6 +13,7 @@ namespace JogTracker.Identity
     public interface IAuthenticationService
     {
         AuthResponse Authenticate(User user);
+        User GetUserFromPrincipal(ClaimsPrincipal principal);
         JwtSecurityToken ValidateToken(string token);
     }
 
@@ -20,7 +21,6 @@ namespace JogTracker.Identity
     {
         private readonly JwtSecurityTokenHandler _tokenHandler;
         private readonly SymmetricSecurityKey _secret;
-        private readonly string _issuer;
         private readonly string _signingAlgorithm;
         private readonly int _accessTokenLifetime;
 
@@ -28,7 +28,6 @@ namespace JogTracker.Identity
         {
             _tokenHandler = new JwtSecurityTokenHandler();
             _secret = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.IdentitySettings.Secret));
-            _issuer = configuration.IdentitySettings.Issuer;
             _signingAlgorithm = SecurityAlgorithms.HmacSha256Signature;
             _accessTokenLifetime = configuration.IdentitySettings.AccessTokenLifetimeInMinutes;
         }
@@ -44,6 +43,23 @@ namespace JogTracker.Identity
                     RefreshToken = GenerateRefreshToken(),
                 }
             };
+        }
+
+        public User GetUserFromPrincipal(ClaimsPrincipal principal)
+        {
+            try
+            {
+                return new User
+                {
+                    Id = principal.FindFirstValue(ClaimTypes.PrimarySid),
+                    Username = principal.FindFirstValue(ClaimTypes.Name),
+                    Role = principal.FindFirstValue(ClaimTypes.Role),
+                };
+            } 
+            catch
+            {
+                return new User();
+            }
         }
 
         public string RefreshAccessToken(JwtPair jwt)
