@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JogTracker.Common\JogTracker.Common.csproj" />
     <ProjectReference Include="..\JogTracker.Models\JogTracker.Models.csproj" />
   </ItemGroup>
 

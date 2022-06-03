@@ -1,6 +1,6 @@
 ﻿using JogTracker.Configuration;
-using JogTracker.Models.Account;
-using JogTracker.Models.Users;
+using JogTracker.Models.DTO.Account;
+using JogTracker.Models.DTO.Users;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +12,7 @@ namespace JogTracker.Identity
 {
     public interface IAuthenticationService
     {
-        AuthResponse Authenticate(User user);
+        AuthResult Authenticate(User user);
         User GetUserFromPrincipal(ClaimsPrincipal principal);
         JwtSecurityToken ValidateToken(string token);
     }
@@ -32,9 +32,9 @@ namespace JogTracker.Identity
             _accessTokenLifetime = configuration.IdentitySettings.AccessTokenLifetimeInMinutes;
         }
 
-        public AuthResponse Authenticate(User user)
+        public AuthResult Authenticate(User user)
         {
-            return new AuthResponse
+            return new AuthResult
             {
                 CurrentUser = user,
                 JWT = new JwtPair()

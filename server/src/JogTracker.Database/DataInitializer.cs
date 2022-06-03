@@ -1,7 +1,8 @@
-﻿using JogTracker.Configuration;
+﻿using JogTracker.Common.Constants;
+using JogTracker.Configuration;
 using JogTracker.Entities;
-using JogTracker.Models.Constants;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace JogTracker.Database
@@ -12,11 +13,11 @@ namespace JogTracker.Database
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public DataInitializer(UserManager<UserEntity> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public DataInitializer(ServiceProvider serviceProvider)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _configuration = configuration;
+            _userManager = serviceProvider.GetRequiredService<UserManager<UserEntity>>();
+            _roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            _configuration = serviceProvider.GetService<IConfiguration>();
         }
 
         public async Task Initialize()

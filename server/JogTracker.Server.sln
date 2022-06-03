@@ -7,17 +7,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Api", "src\JogTr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Database", "src\JogTracker.Database\JogTracker.Database.csproj", "{A6637091-F707-4429-94E4-8D913E668F3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Mappers", "src\JogTracker.Mappers\JogTracker.Mappers.csproj", "{E2DB70B4-28EB-47D5-A628-EFAA9E1EA45F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Entities", "src\JogTracker.Entities\JogTracker.Entities.csproj", "{91DAD221-E377-4510-B958-D5C06E010A78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Models", "src\JogTracker.Models\JogTracker.Models.csproj", "{BA52CC7E-03DE-4E9A-914D-0030352EF9B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Services", "src\JogTracker.Services\JogTracker.Services.csproj", "{8E3468FC-6495-41B1-9007-64F2A4483724}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Identity", "src\JogTracker.Identity\JogTracker.Identity.csproj", "{0F0D828C-13C6-4A38-A0D2-88F309221FC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Identity", "src\JogTracker.Identity\JogTracker.Identity.csproj", "{0F0D828C-13C6-4A38-A0D2-88F309221FC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Configuration", "src\JogTracker.Configuration\JogTracker.Configuration.csproj", "{1188A7AB-093E-4FC0-BB54-8A7C32626015}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Configuration", "src\JogTracker.Configuration\JogTracker.Configuration.csproj", "{1188A7AB-093E-4FC0-BB54-8A7C32626015}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Repository", "src\JogTracker.Repository\JogTracker.Repository.csproj", "{A2AB2148-E4F0-4DF6-9C51-DE097C2FA758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Common", "src\JogTracker.Common\JogTracker.Common.csproj", "{93FF9606-5675-4F4D-87C4-17F53F5795DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Mappers", "src\JogTracker.Mappers\JogTracker.Mappers.csproj", "{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +35,6 @@ Global
 		{A6637091-F707-4429-94E4-8D913E668F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6637091-F707-4429-94E4-8D913E668F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6637091-F707-4429-94E4-8D913E668F3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2DB70B4-28EB-47D5-A628-EFAA9E1EA45F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2DB70B4-28EB-47D5-A628-EFAA9E1EA45F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2DB70B4-28EB-47D5-A628-EFAA9E1EA45F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2DB70B4-28EB-47D5-A628-EFAA9E1EA45F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91DAD221-E377-4510-B958-D5C06E010A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91DAD221-E377-4510-B958-D5C06E010A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91DAD221-E377-4510-B958-D5C06E010A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,10 +43,6 @@ Global
 		{BA52CC7E-03DE-4E9A-914D-0030352EF9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA52CC7E-03DE-4E9A-914D-0030352EF9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA52CC7E-03DE-4E9A-914D-0030352EF9B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E3468FC-6495-41B1-9007-64F2A4483724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E3468FC-6495-41B1-9007-64F2A4483724}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E3468FC-6495-41B1-9007-64F2A4483724}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E3468FC-6495-41B1-9007-64F2A4483724}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F0D828C-13C6-4A38-A0D2-88F309221FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F0D828C-13C6-4A38-A0D2-88F309221FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F0D828C-13C6-4A38-A0D2-88F309221FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +51,18 @@ Global
 		{1188A7AB-093E-4FC0-BB54-8A7C32626015}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1188A7AB-093E-4FC0-BB54-8A7C32626015}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1188A7AB-093E-4FC0-BB54-8A7C32626015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2AB2148-E4F0-4DF6-9C51-DE097C2FA758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2AB2148-E4F0-4DF6-9C51-DE097C2FA758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2AB2148-E4F0-4DF6-9C51-DE097C2FA758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2AB2148-E4F0-4DF6-9C51-DE097C2FA758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93FF9606-5675-4F4D-87C4-17F53F5795DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93FF9606-5675-4F4D-87C4-17F53F5795DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93FF9606-5675-4F4D-87C4-17F53F5795DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93FF9606-5675-4F4D-87C4-17F53F5795DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

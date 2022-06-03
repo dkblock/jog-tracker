@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JogTracker.Common\JogTracker.Common.csproj" />
+    <ProjectReference Include="..\JogTracker.Database\JogTracker.Database.csproj" />
+    <ProjectReference Include="..\JogTracker.Entities\JogTracker.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

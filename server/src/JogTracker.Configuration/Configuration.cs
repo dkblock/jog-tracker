@@ -1,4 +1,4 @@
-﻿using JogTracker.Models.Settings;
+﻿using JogTracker.Common.Settings;
 using System;
 
 namespace JogTracker.Configuration

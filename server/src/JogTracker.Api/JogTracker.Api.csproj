@@ -5,15 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.25" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JogTracker.Common\JogTracker.Common.csproj" />
     <ProjectReference Include="..\JogTracker.Configuration\JogTracker.Configuration.csproj" />
     <ProjectReference Include="..\JogTracker.Identity\JogTracker.Identity.csproj" />
     <ProjectReference Include="..\JogTracker.Mappers\JogTracker.Mappers.csproj" />
     <ProjectReference Include="..\JogTracker.Models\JogTracker.Models.csproj" />
-    <ProjectReference Include="..\JogTracker.Services\JogTracker.Services.csproj" />
+    <ProjectReference Include="..\JogTracker.Repository\JogTracker.Repository.csproj" />
   </ItemGroup>
 
 

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace JogTracker.Server
+namespace JogTracker.Api
 {
     public class Program
     {

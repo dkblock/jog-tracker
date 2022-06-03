@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JogTracker.Common\JogTracker.Common.csproj" />
     <ProjectReference Include="..\JogTracker.Configuration\JogTracker.Configuration.csproj" />
     <ProjectReference Include="..\JogTracker.Entities\JogTracker.Entities.csproj" />
   </ItemGroup>

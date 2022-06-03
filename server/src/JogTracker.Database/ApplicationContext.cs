@@ -12,6 +12,9 @@ namespace JogTracker.Database
             Database.EnsureCreated();
         }
 
+        public DbSet<UserEntity> ApplicationUsers { get; set; }
+        public DbSet<JogEntity> Jogs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -25,9 +28,6 @@ namespace JogTracker.Database
                 .HasOne(j => j.User)
                 .WithMany(u => u.Jogs)
                 .HasForeignKey(j => j.UserId);
-        }
-
-        public DbSet<UserEntity> ApplicationUsers { get; set; }
-        public DbSet<JogEntity> Jogs { get; set; }
+        }        
     }
 }

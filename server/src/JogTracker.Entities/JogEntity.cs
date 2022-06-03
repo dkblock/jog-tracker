@@ -4,7 +4,7 @@ namespace JogTracker.Entities
 {
     public class JogEntity
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public DateTime Date { get; set; }
         public double DistanceInMeters { get; set; }
         public long ElapsedTimeInSeconds { get; set; }

@@ -1,6 +1,5 @@
-﻿using JogTracker.Api.Core;
-using JogTracker.Api.Validation;
-using JogTracker.Models.Account;
+﻿using JogTracker.Models.Commands.Account;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -11,40 +10,28 @@ namespace JogTracker.Api.Controllers
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountHandler _accountHandler;
-        private readonly IAccountValidator _accountValidator;
+        private readonly IMediator _mediator;
 
-        public AccountController(IAccountHandler accountHandler, IAccountValidator accountValidator)
+        public AccountController(IMediator mediator)
         {
-            _accountHandler = accountHandler;
-            _accountValidator = accountValidator;
+            _mediator = mediator;
         }
 
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterPayload registerPayload)
+        public async Task<IActionResult> Register([FromBody] RegisterCommand payload)
         {
-            var validationResult = await _accountValidator.ValidateOnRegister(registerPayload);
-
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult);
-
-            var authResponse = await _accountHandler.Register(registerPayload);
+            var authResponse = await _mediator.Send(payload);
             return Ok(authResponse);
         }
 
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginPayload loginPayload)
+        public async Task<IActionResult> Login([FromBody] LoginCommand payload)
         {
-            var validationResult = await _accountValidator.ValidateOnLogin(loginPayload);
-
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult);
-
-            var authResponse = await _accountHandler.Login(loginPayload);
+            var authResponse = await _mediator.Send(payload);
             return Ok(authResponse);
         }
     }

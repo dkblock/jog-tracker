@@ -1,17 +1,11 @@
-using JogTracker.Api;
-using JogTracker.Configuration;
-using JogTracker.Database;
-using JogTracker.Identity;
-using JogTracker.Mappers;
-using JogTracker.Services;
+using JogTracker.Api.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using IConfiguration = JogTracker.Configuration.IConfiguration;
 
-namespace JogTracker.Server
+namespace JogTracker.Api
 {
     public class Startup
     {
@@ -22,12 +16,11 @@ namespace JogTracker.Server
             services.AddControllers().AddNewtonsoftJson();
             services.AddCors();
 
-            services.AddConfiguration();
-            services.AddIdentityServices();
-            services.AddDatabase();
-            services.AddRepositoryServices();
             services.AddCoreServices();
-            services.AddMappers();
+            services.AddConfiguration();
+            services.AddDatabase();
+            services.AddIdentity();
+            services.AddRepositories();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
@@ -45,7 +38,9 @@ namespace JogTracker.Server
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseIdentityMiddleware();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
