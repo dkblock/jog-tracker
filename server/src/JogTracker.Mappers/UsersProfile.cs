@@ -12,6 +12,7 @@ namespace JogTracker.Mappers
         {
             CreateMap<UserEntity, User>();
             CreateMap<RegisterCommand, UserEntity>();
+            CreateMap<CreateRefreshTokenCommand, RefreshTokenEntity>();
         }
     }
 }

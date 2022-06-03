@@ -56,27 +56,15 @@ namespace JogTracker.Api.Controllers
             return Ok(jogsPage);
         }
 
-        //[HttpDelete]
-        //[Route("{jogId}")]
-        //[Authorize]
-        //public IActionResult DeleteJog([FromRoute] int jogId)
-        //{
-        //    if (!_jogHandler.IsJogExist(jogId))
-        //        return NotFound();
+        [HttpDelete]
+        [Route("{jogId}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteJog([FromRoute] string jogId)
+        {
+            var payload = new DeleteJogCommand(jogId, User.GetUserId());
+            await _mediator.Send(payload);
 
-        //    var jogToDelete = _jogHandler.GetJogById(jogId);
-
-        //    if (!HasAccessToJog(jogToDelete))
-        //        return Forbid();
-
-        //    _jogHandler.DeleteJog(jogId);
-
-        //    return NoContent();
-        //}
-
-        //private bool HasAccessToJog(Jog jog)
-        //{
-        //    return jog.User.Id == UserContext.CurrentUser.Id || UserContext.CurrentUser.Role != Roles.Administrator;
-        //}
+            return NoContent();
+        }
     }
 }

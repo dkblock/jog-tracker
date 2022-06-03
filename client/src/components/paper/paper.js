@@ -3,6 +3,6 @@ import { Paper as MuiPaper } from '@mui/material';
 
 import './paper.scss';
 
-const Paper = ({ children }) => <MuiPaper className="paper">{children}</MuiPaper>;
+const Paper = ({ className, children }) => <MuiPaper className={`${className} paper`}>{children}</MuiPaper>;
 
 export default Paper;

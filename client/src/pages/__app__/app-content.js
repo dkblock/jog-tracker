@@ -1,7 +1,9 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import routes from '../../utils/routes';
+import { Route } from '../../components/route';
+import Account from '../account';
 import Jogs from '../jogs/jogs';
 import './app.scss';
 
@@ -9,8 +11,9 @@ const AppContent = () => {
   return (
     <div className="app-content">
       <Switch>
-        <Route path="/" component={Jogs} />
-        <Route path={routes.jogs()} component={Jogs} />
+        <Route path="/" exact component={Jogs} />
+        <Route path={routes.account.main} component={Account} />
+        <Route path={routes.jogs.main} component={Jogs} />
       </Switch>
     </div>
   );

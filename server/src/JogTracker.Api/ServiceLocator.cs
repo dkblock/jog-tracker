@@ -80,6 +80,7 @@ namespace JogTracker.Api
             });
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ITokenGenerator, TokenGenerator>();
         }
 
         public static void AddRepositories(this IServiceCollection services)

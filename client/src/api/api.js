@@ -7,6 +7,9 @@ const buildUrl = (path, params = null) => {
 };
 
 const api = {
+  authenticate: () => buildUrl('api/auth'),
+  refresh: () => buildUrl('api/auth/refresh'),
+
   login: () => buildUrl('api/account/login'),
   register: () => buildUrl('api/account/register'),
 

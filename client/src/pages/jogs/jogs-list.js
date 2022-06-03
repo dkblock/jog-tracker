@@ -15,6 +15,7 @@ const columns = [
 
 const prepareJogs = (jogs) =>
   jogs.map((jog) => ({
+    id: jog.id,
     fullName: `${jog.user.lastName}, ${jog.user.firstName}`,
     username: jog.user.username,
     distance: jog.distanceInMeters,

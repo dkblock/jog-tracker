@@ -1,8 +1,10 @@
+import { refreshJwtIfNeed } from './utils';
 import { getAccessToken } from '../../utils/local-storage-manager';
 
 const baseService = {
   get: async (url) => {
     try {
+      await refreshJwtIfNeed();
       return await fetch(url, {
         method: 'GET',
         headers: {
@@ -16,6 +18,7 @@ const baseService = {
 
   post: async (url, data) => {
     try {
+      await refreshJwtIfNeed();
       return await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -31,6 +34,7 @@ const baseService = {
 
   delete: async (url) => {
     try {
+      await refreshJwtIfNeed();
       return await fetch(url, {
         method: 'DELETE',
         headers: {
@@ -44,6 +48,7 @@ const baseService = {
 
   put: async (url, data) => {
     try {
+      await refreshJwtIfNeed();
       return await fetch(url, {
         method: 'PUT',
         body: JSON.stringify(data),

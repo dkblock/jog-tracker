@@ -42,4 +42,15 @@
     height: 1px;
     background: rgba(18, 24, 33, 0.12);
   }
+
+  &__button {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    text-transform: none !important;
+    height: 45px;
+
+    &:hover {
+      color: #1976d2;
+    }
+  }
 }
