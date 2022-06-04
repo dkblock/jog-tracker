@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { register } from '../../actions/account';
+import { register } from '../../actions';
+import { useCurrentUser } from '../../hooks';
 import accountValidator from '../../utils/validation/account-validator';
-import { Paper } from '../../components/paper';
-import { Button } from '../../components/button';
-import { TextField } from '../../components/text-field';
+import { SELECTORS } from '../../store';
+import { Button, Paper, Route, TextField } from '../../components';
 
 const Register = () => {
   const dispatch = useDispatch();
+  const isFetching = useSelector(SELECTORS.ACCOUNT.getIsSendingCredentials);
+  const { isAuthenticated } = useCurrentUser();
+
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -35,11 +38,14 @@ const Register = () => {
     if (isValid) {
       setValidationErrors({});
       dispatch(register({ credentials }));
-      // setIsRegistered(true);
     } else {
       setValidationErrors(nextValidationErrors);
     }
   };
+
+  if (isAuthenticated) {
+    return <Route.Redirect to={Route.routes.jogs.main} />;
+  }
 
   return (
     <div className="account-sign">
@@ -93,8 +99,8 @@ const Register = () => {
           onFocus={handleConfirmPasswordFocus}
         />
         <div className="account-sign-form__submit">
-          <Button color={Button.colors.success} onClick={handleSubmit}>
-            Sign up
+          <Button color={Button.colors.success} isLoading={isFetching} onClick={handleSubmit}>
+            {isFetching ? 'Signing up...' : 'Sign up'}
           </Button>
         </div>
       </Paper>

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { onFulfilledDefault, onPendingDefault, onRejectedDefault } from './defaults';
-import { fetchJogs } from '../../actions/jogs';
+import { fetchJogs } from '../../actions';
 
 const initialState = {
   jogs: [],
@@ -45,15 +45,15 @@ const jogsReducer = createSlice({
 }).reducer;
 
 const SELECTORS = {
-  getJogs: ({ JOGS: state }) => state.jogs,
-  getTotalCount: ({ JOGS: state }) => state.totalCount,
-  getFilter: ({ JOGS: state }) => ({
-    searchText: state.searchText,
-    pageIndex: state.pageIndex,
-    sortBy: state.sortBy,
-    sortDirection: state.sortDirection,
+  getJogs: (state) => state.JOGS.jogs,
+  getTotalCount: (state) => state.JOGS.totalCount,
+  getFilter: (state) => ({
+    searchText: state.JOGS.searchText,
+    pageIndex: state.JOGS.pageIndex,
+    sortBy: state.JOGS.sortBy,
+    sortDirection: state.JOGS.sortDirection,
   }),
-  isFetching: ({ JOGS: state }) => state.isFetching,
+  getIsFetching: (state) => state.JOGS.isFetching,
 };
 
 export { SELECTORS, jogsReducer };

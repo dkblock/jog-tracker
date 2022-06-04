@@ -18,8 +18,8 @@ namespace JogTracker.Api
 
             services.AddCoreServices();
             services.AddConfiguration();
-            services.AddDatabase();
             services.AddIdentity();
+            services.AddDatabase();
             services.AddRepositories();
         }
 

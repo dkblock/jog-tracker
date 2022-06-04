@@ -2,8 +2,8 @@ import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MuiButton from '@mui/material/Button';
 
-import colors from '../../constants/colors';
-import palette from '../../utils/palette';
+import colors from '../constants/colors';
+import palette from '../constants/palette';
 import { Icon } from '../icon';
 import { Loader } from '../loader';
 import './button.scss';
@@ -37,14 +37,14 @@ const Button = ({
       onClick={onClick}
       startIcon={
         isLoading && loadingPosition === 'start' ? (
-          <Loader size="extra-small" color={colors.gray} />
+          <Loader size={Loader.sizes.extraSmall} color={colors.gray} />
         ) : startIcon ? (
           <Icon type={startIcon} />
         ) : null
       }
       endIcon={
         isLoading && loadingPosition === 'end' ? (
-          <Loader size="extra-small" color={colors.gray} />
+          <Loader size={Loader.sizes.extraSmall} color={colors.gray} />
         ) : endIcon ? (
           <Icon type={endIcon} />
         ) : null

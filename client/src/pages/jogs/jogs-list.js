@@ -1,13 +1,19 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { fetchJogs } from '../../actions';
 import { SELECTORS } from '../../store';
-import { Table } from '../../components/table';
-import { fetchJogs } from '../../actions/jogs';
+import { Avatar, Table } from '../../components';
 
 const columns = [
+  {
+    id: 'avatar',
+    label: ' ',
+    width: 64,
+    renderCell: (row) => <Avatar firstName={row.user.firstName} lastName={row.user.lastName} />,
+  },
   { id: 'fullName', label: 'Name' },
-  { id: 'username', label: 'Username' },
+  { id: 'userName', label: 'Username' },
   { id: 'distance', label: 'Distance' },
   { id: 'date', label: 'Date' },
   { id: 'averageSpeed', label: 'Average speed' },
@@ -15,9 +21,10 @@ const columns = [
 
 const prepareJogs = (jogs) =>
   jogs.map((jog) => ({
+    ...jog,
     id: jog.id,
     fullName: `${jog.user.lastName}, ${jog.user.firstName}`,
-    username: jog.user.username,
+    userName: jog.user.userName,
     distance: jog.distanceInMeters,
     date: new Date(jog.date).toLocaleDateString(),
     averageSpeed: jog.averageSpeedInMetersPerSecond,
@@ -25,7 +32,7 @@ const prepareJogs = (jogs) =>
 
 const useJogs = () => {
   const jogs = useSelector(SELECTORS.JOGS.getJogs);
-  const isFetching = useSelector(SELECTORS.JOGS.isFetching);
+  const isFetching = useSelector(SELECTORS.JOGS.getIsFetching);
 
   return [jogs, isFetching];
 };

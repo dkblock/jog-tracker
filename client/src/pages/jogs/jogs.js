@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Paper } from '../../components/paper';
 import JogsList from './jogs-list';
+import { Paper } from '../../components';
 import './jogs.scss';
 
 const Jogs = () => {

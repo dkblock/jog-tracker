@@ -3,8 +3,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MuiTextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import colors from '../../constants/colors';
-import palette from '../../utils/palette';
+import colors from '../constants/colors';
+import palette from '../constants/palette';
 import { Icon } from '../icon';
 
 const theme = createTheme({ palette });

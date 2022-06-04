@@ -1,5 +1,5 @@
 import * as materialIcons from '@mui/icons-material';
-import iconTypes from '../../constants/icon-types';
+import iconTypes from './icon-types';
 
 const icons = {
   [iconTypes.account]: materialIcons.Person,

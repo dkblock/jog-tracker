@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { login } from '../../actions/account';
+import { login } from '../../actions';
+import { useCurrentUser } from '../../hooks';
 import accountValidator from '../../utils/validation/account-validator';
-import { Paper } from '../../components/paper';
-import { Button } from '../../components/button';
-import { TextField } from '../../components/text-field';
+import { SELECTORS } from '../../store';
+import { Button, Paper, Route, TextField } from '../../components';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const isFetching = useSelector(SELECTORS.ACCOUNT.getIsSendingCredentials);
+  const { isAuthenticated } = useCurrentUser();
+
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [validationErrors, setValidationErrors] = useState({});
@@ -26,11 +29,14 @@ const Login = () => {
     if (isValid) {
       setValidationErrors({});
       dispatch(login({ credentials }));
-      // setIsLogined(true);
     } else {
       setValidationErrors(nextValidationErrors);
     }
   };
+
+  if (isAuthenticated) {
+    return <Route.Redirect to={Route.routes.jogs.main} />;
+  }
 
   return (
     <form className="account-sign">
@@ -56,8 +62,8 @@ const Login = () => {
           onFocus={handlePasswordFocus}
         />
         <div className="account-sign-form__submit">
-          <Button color={Button.colors.success} onClick={handleSubmit}>
-            Sign in
+          <Button color={Button.colors.success} isLoading={isFetching} onClick={handleSubmit}>
+            {isFetching ? 'Signing in...' : 'Sign in'}
           </Button>
         </div>
       </Paper>

@@ -1,4 +1,5 @@
-﻿using JogTracker.Models.Commands.Authentication;
+﻿using JogTracker.Common.Extensions;
+using JogTracker.Models.Commands.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,17 @@ namespace JogTracker.Api.Controllers
         public AuthenticationController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Route("")]
+        [Authorize]
+        public async Task<IActionResult> Authenticate()
+        {
+            var payload = new AuthenticateCommand(User.GetUserId());
+            var user = await _mediator.Send(payload);
+
+            return Ok(user);
         }
 
         [HttpPost]

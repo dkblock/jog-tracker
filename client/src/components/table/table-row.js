@@ -3,7 +3,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Collapse from '@mui/material/Collapse';
 
-import { IconButton, iconTypes } from '../icon';
+import { IconButton } from '../icon';
 
 const EnhancedTableRow = ({ row, columns, onExpand }) => {
   const rowBorder = '1px solid rgba(224, 224, 224, 1)';
@@ -33,7 +33,7 @@ const EnhancedTableRow = ({ row, columns, onExpand }) => {
         {expandable && (
           <TableCell width={75}>
             <IconButton
-              type={isExpanded ? iconTypes.arrowDown : iconTypes.arrowRight}
+              type={isExpanded ? IconButton.types.arrowDown : IconButton.types.arrowRight}
               onClick={(e) => handleExpandIconClick(e)}
             />
           </TableCell>

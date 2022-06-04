@@ -40,7 +40,13 @@ namespace JogTracker.Api
 
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
-            //new DataInitializer(serviceProvider).Initialize().Wait();
+            InitializeDatabase(services);
+        }
+
+        private static void InitializeDatabase(IServiceCollection services)
+        {
+            var serviceProvider = services.BuildServiceProvider();
+            new DataInitializer(serviceProvider).Initialize().Wait();
         }
 
         public static void AddIdentity(this IServiceCollection services)

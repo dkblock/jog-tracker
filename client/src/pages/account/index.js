@@ -1,16 +1,15 @@
 import React from 'react';
 
-import routes from '../../utils/routes';
-import { Route } from '../../components/route';
 import Login from './login';
 import Register from './register';
+import { Route } from '../../components/route';
 import './account.scss';
 
 const Account = () => {
   return (
     <div className="account">
-      <Route path={routes.account.login} exact={false} component={Login} />
-      <Route path={routes.account.register} exact={true} component={Register} />
+      <Route path={Route.routes.account.login} component={Login} />
+      <Route path={Route.routes.account.register} component={Register} />
     </div>
   );
 };

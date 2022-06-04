@@ -10,13 +10,14 @@ const api = {
   authenticate: () => buildUrl('api/auth'),
   refresh: () => buildUrl('api/auth/refresh'),
 
-  login: () => buildUrl('api/account/login'),
   register: () => buildUrl('api/account/register'),
+  login: () => buildUrl('api/account/login'),
+  logout: () => buildUrl('api/account/logout'),
 
   fetchJogs: (params) => buildUrl('api/jogs', params),
-  jog: (id) => buildUrl(`api/jogs/${id}`),
+  fetchJog: (id) => buildUrl(`api/jogs/${id}`),
 
-  users: () => buildUrl('api/users'),
+  fetchUsers: () => buildUrl('api/users'),
 };
 
 export default api;

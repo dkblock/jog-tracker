@@ -10,6 +10,7 @@ namespace JogTracker.Repository
         Task Create(UserEntity user, string password);
         Task<bool> IsExistByUserName(string username);
         Task<bool> IsPasswordValid(string username, string password);
+        Task<UserEntity> GetById(string id);
         Task<UserEntity> GetByUserName(string username);
         Task<string> GetRole(string userId);
     }
@@ -42,6 +43,11 @@ namespace JogTracker.Repository
                 return false;
 
             return await _userManager.CheckPasswordAsync(user, password);
+        }
+
+        public async Task<UserEntity> GetById(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
         }
 
         public async Task<UserEntity> GetByUserName(string username)

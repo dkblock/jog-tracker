@@ -1,24 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import accountService from '../api/services/account-service';
+import { accountService } from '../api';
 import statusCode from '../utils/status-code-reader';
 import { navigateToJogs } from '../utils/navigator';
-import {
-  clearAccessToken,
-  clearRefreshToken,
-  getAccessToken,
-  getRefreshToken,
-  setAccessToken,
-  setRefreshToken,
-} from '../utils/local-storage-manager';
+import { clearAccessToken, clearRefreshToken, setAccessToken, setRefreshToken } from '../utils/local-storage-manager';
 
 export const authenticate = createAsyncThunk('authenticate', async () => {
-  if (!getAccessToken()) {
-    return { currentUser: {}, isAuthenticated: false };
+  const response = await accountService.authenticate();
+
+  if (!response) {
+    return { currentUser: {}, isAuthenticated: false, hasError: true, validationErrors: {} };
   }
 
-  const response = await accountService.auth();
-  return await getAuthenticationResult(response);
+  const currentUser = await response.json();
+  return { currentUser, isAuthenticated: true, hasError: false, validationErrors: {} };
 });
 
 export const register = createAsyncThunk('register', async ({ credentials }) => {
@@ -28,14 +23,15 @@ export const register = createAsyncThunk('register', async ({ credentials }) => 
 
 export const login = createAsyncThunk('login', async ({ credentials }) => {
   const response = await accountService.login(credentials);
-  const result = await getAuthenticationResult(response);
-  const { hasError } = result;
+  return await getAuthenticationResult(response);
+});
 
-  if (!hasError) {
-    navigateToJogs();
-  }
+export const logout = createAsyncThunk('logout', async () => {
+  await accountService.logout();
 
-  return result;
+  clearAccessToken();
+  clearRefreshToken();
+  navigateToJogs();
 });
 
 const getAuthenticationResult = async (response) => {
@@ -44,6 +40,7 @@ const getAuthenticationResult = async (response) => {
 
     setAccessToken(jwt.accessToken);
     setRefreshToken(jwt.refreshToken);
+    navigateToJogs();
 
     return { currentUser, isAuthenticated: true, hasError: false, validationErrors: {} };
   }

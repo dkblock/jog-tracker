@@ -1,8 +1,9 @@
 import React from 'react';
 import { IconButton as MaterialIconButton } from '@mui/material';
 
-import palette from '../../utils/palette';
+import palette from '../constants/palette';
 import icons from './icons';
+import iconTypes from './icon-types';
 import './icon.scss';
 
 const Icon = ({ type, color = '', size = 'medium' }) => {
@@ -21,4 +22,6 @@ const IconButton = ({ type, selected, disabled, onClick }) => {
   );
 };
 
+Icon.types = iconTypes;
+IconButton.types = iconTypes;
 export { Icon, IconButton };

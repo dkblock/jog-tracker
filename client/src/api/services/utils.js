@@ -10,6 +10,23 @@ import {
   setRefreshToken,
 } from '../../utils/local-storage-manager';
 
+export const authenticate = async () => {
+  await refreshJwtIfNeed();
+  const accessToken = getAccessToken();
+
+  if (!accessToken) {
+    return null;
+  }
+
+  return await fetch(api.authenticate(), {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 export const refreshJwtIfNeed = async () => {
   const accessToken = getAccessToken();
 

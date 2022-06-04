@@ -1,4 +1,5 @@
-﻿using JogTracker.Models.Commands.Account;
+﻿using JogTracker.Common.Extensions;
+using JogTracker.Models.Commands.Account;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,17 @@ namespace JogTracker.Api.Controllers
         {
             var authResponse = await _mediator.Send(payload);
             return Ok(authResponse);
+        }
+
+        [HttpGet]
+        [Route("logout")]
+        [Authorize]
+        public async Task<IActionResult> Login()
+        {
+            var payload = new LogoutCommand(User.GetUserId());
+            await _mediator.Send(payload);
+
+            return Ok();
         }
     }
 }

@@ -1,7 +1,9 @@
-import { SELECTORS as JOGS } from './reducers/jogs';
+import { SELECTORS as ACCOUNT_SELECTORS } from './reducers/account';
+import { SELECTORS as JOGS_SELECTORS } from './reducers/jogs';
 
 const SELECTORS = {
-  JOGS: JOGS,
+  ACCOUNT: ACCOUNT_SELECTORS,
+  JOGS: JOGS_SELECTORS,
 };
 
 export default SELECTORS;
