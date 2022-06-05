@@ -39,6 +39,7 @@ const columns = [
   { id: 'lastName', label: 'Last Name' },
   { id: 'userName', label: 'Username' },
   { id: 'role', label: 'Role', renderCell: ({ role }) => roleItems[role] },
+  { id: 'totalJogs', label: 'Completed Jogs', align: 'center' },
 ];
 
 const useUsers = () => {

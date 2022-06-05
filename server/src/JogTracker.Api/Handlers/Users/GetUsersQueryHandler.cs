@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -57,13 +58,14 @@ namespace JogTracker.Api.Handlers.Users
             });
         }
 
-        private IDictionary<UsersSortBy, Func<UserEntity, object>> UsersSortModel =>
-            new Dictionary<UsersSortBy, Func<UserEntity, object>>
+        private IDictionary<UsersSortBy, Expression<Func<UserEntity, object>>> UsersSortModel =>
+            new Dictionary<UsersSortBy, Expression<Func<UserEntity, object>>>
             {
                 { UsersSortBy.FirstName, x => x.FirstName },
                 { UsersSortBy.LastName, x => x.LastName },
                 { UsersSortBy.Username, x => x.UserName },
                 { UsersSortBy.Role, x => x.Role },
+                { UsersSortBy.TotalJogs, x => x.Jogs.Count() },
             };
     }
 }

@@ -19,6 +19,8 @@ const api = {
   deleteJog: (id) => buildUrl(`api/jogs/${id}`),
   updateJog: (id) => buildUrl(`api/jogs/${id}`),
 
+  generateReport: (params) => buildUrl('api/reports/generate', params),
+
   fetchUsers: (params) => buildUrl('api/users', params),
   deleteUser: (id) => buildUrl(`api/users/${id}`),
   updateUser: (id) => buildUrl(`api/users/${id}`),

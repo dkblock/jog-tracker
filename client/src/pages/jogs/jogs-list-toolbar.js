@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
 import Popover from '@mui/material/Popover';
 
-import { showCreateJogModal } from '../../store/actions';
+import { showCreateJogModal, showGenerateReportModal } from '../../store/actions';
 import { Button, DateRangePicker, Icon, IconButton, Switch, Table, TextField, Tooltip } from '../../components';
 
 const JogsListToolbar = ({
@@ -27,6 +27,13 @@ const JogsListToolbar = ({
 
   return (
     <Table.Toolbar title="Jog Results" count={totalCount}>
+      <Button
+        color={Button.colors.primary}
+        endIcon={Icon.types.FLAG}
+        onClick={() => dispatch(showGenerateReportModal())}
+      >
+        Generate report
+      </Button>
       {isAuthenticated && (
         <>
           <Button

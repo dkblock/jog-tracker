@@ -27,8 +27,9 @@ const usersReducer = createSlice({
     [fetchUsers.pending]: (state, { meta: { arg } }) => {
       onPendingDefault(state);
 
-      const { searchText, pageIndex, sortBy, sortDirection } = arg;
+      const { searchText, role, pageIndex, sortBy, sortDirection } = arg;
       state.searchText = searchText;
+      state.role = role;
       state.pageIndex = pageIndex;
       state.sortBy = sortBy;
       state.sortDirection = sortDirection;

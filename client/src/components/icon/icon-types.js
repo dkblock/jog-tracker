@@ -9,6 +9,7 @@ const iconTypes = {
   DELETE: 'DELETE',
   DONE: 'DONE',
   EDIT: 'EDIT',
+  FLAG: 'FLAG',
   HELP: 'HELP',
   INFO: 'INFO',
   LAUNCH: 'LAUNCH',

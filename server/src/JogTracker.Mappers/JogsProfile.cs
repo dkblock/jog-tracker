@@ -9,62 +9,85 @@ namespace JogTracker.Mappers
 {
     public class JogsProfile : Profile
     {
-        private const int MetersInOneKilometerRatio = 1000;
-        private const double MetersPerSecondToKilometersPerHourRatio = 3.6;
-
         public JogsProfile()
             : base()
         {
             CreateMap<JogEntity, Jog>()
-                .ForMember(dest => dest.DistanceInKilometers, src => src.MapFrom(src => ToKilometers(src)))
-                .ForMember(dest => dest.AverageSpeedInKilometersPerHour, src => src.MapFrom(src => ToKilometersPerHour(src)))
-                .ForMember(dest => dest.ElapsedTime, src => src.MapFrom(src => ToTime(src)));
+                .ForMember(dest => dest.DistanceInKilometers, src => src.MapFrom(src => JogValuesMapper.ToKilometers(src)))
+                .ForMember(dest => dest.AverageSpeedInKilometersPerHour, src => src.MapFrom(src => JogValuesMapper.ToKilometersPerHour(src)))
+                .ForMember(dest => dest.ElapsedTime, src => src.MapFrom(src => JogValuesMapper.ToTime(src)));
 
             CreateMap<CreateJogCommand, JogEntity>()
-                .ForMember(dest => dest.DistanceInMeters, src => src.MapFrom(src => ToMeters(src)))
-                .ForMember(dest => dest.ElapsedTimeInSeconds, src => src.MapFrom(src => ToTimeInSeconds(src)))
-                .ForMember(dest => dest.AverageSpeedInMetersPerSecond, src => src.MapFrom(src => ToMetersPerSecond(src)));
+                .ForMember(dest => dest.DistanceInMeters, src => src.MapFrom(src => JogValuesMapper.ToMeters(src)))
+                .ForMember(dest => dest.ElapsedTimeInSeconds, src => src.MapFrom(src => JogValuesMapper.ToTimeInSeconds(src)))
+                .ForMember(dest => dest.AverageSpeedInMetersPerSecond, src => src.MapFrom(src => JogValuesMapper.ToMetersPerSecond(src)));
 
             CreateMap<UpdateJogCommand, JogEntity>()
-                .ForMember(dest => dest.DistanceInMeters, src => src.MapFrom(src => ToMeters(src)))
-                .ForMember(dest => dest.ElapsedTimeInSeconds, src => src.MapFrom(src => ToTimeInSeconds(src)))
-                .ForMember(dest => dest.AverageSpeedInMetersPerSecond, src => src.MapFrom(src => ToMetersPerSecond(src)));
+                .ForMember(dest => dest.DistanceInMeters, src => src.MapFrom(src => JogValuesMapper.ToMeters(src)))
+                .ForMember(dest => dest.ElapsedTimeInSeconds, src => src.MapFrom(src => JogValuesMapper.ToTimeInSeconds(src)))
+                .ForMember(dest => dest.AverageSpeedInMetersPerSecond, src => src.MapFrom(src => JogValuesMapper.ToMetersPerSecond(src)));
         }
+    }
 
-        private double ToMeters(JogPayloadCommand source)
+    public static class JogValuesMapper
+    {
+        private const int MetersInOneKilometerRatio = 1000;
+        private const double MetersPerSecondToKilometersPerHourRatio = 3.6;
+
+        public static double ToMeters(JogPayloadCommand source)
         {
             return source.DistanceInMeters.HasValue
-                ? (source.DistanceInMeters.Value)
+                ? source.DistanceInMeters.Value
                 : (source.DistanceInKilometers.Value * MetersInOneKilometerRatio);
         }
 
-        private double ToKilometers(JogEntity source)
+        public static double ToKilometers(JogEntity source)
         {
             return source.DistanceInMeters / MetersInOneKilometerRatio;
         }
 
-        private double ToMetersPerSecond(JogPayloadCommand source)
+        public static double ToKilometers(double meters)
+        {
+            return meters / MetersInOneKilometerRatio;
+        }
+
+        public static double ToMetersPerSecond(JogPayloadCommand source)
         {
             return Round(ToMeters(source) / ToTimeInSeconds(source));
         }
 
-        private double ToKilometersPerHour(JogEntity source)
+        public static double ToMetersPerSecond(double metersPerSecond)
+        {
+            return Round(metersPerSecond);
+        }
+
+        public static double ToKilometersPerHour(JogEntity source)
         {
             var value = source.AverageSpeedInMetersPerSecond * MetersPerSecondToKilometersPerHourRatio;
             return Round(value);
         }
 
-        private JogTime ToTime(JogEntity source)
+        public static double ToKilometersPerHour(double metersPerSecond)
         {
-            var time = TimeSpan.FromSeconds(source.ElapsedTimeInSeconds);
+            return Round(metersPerSecond * MetersPerSecondToKilometersPerHourRatio);
+        }
+
+        public static JogTime ToTime(JogEntity source)
+        {
+            return ToTime(source.ElapsedTimeInSeconds);
+        }
+
+        public static JogTime ToTime(double timeInSeconds)
+        {
+            var time = TimeSpan.FromSeconds(timeInSeconds);
             return new JogTime(time.Hours, time.Minutes, time.Seconds);
         }
 
-        private int ToTimeInSeconds(JogPayloadCommand source)
+        public static int ToTimeInSeconds(JogPayloadCommand source)
         {
             return (int)new TimeSpan(source.ElapsedTime.Hours, source.ElapsedTime.Minutes, source.ElapsedTime.Seconds).TotalSeconds;
         }
 
-        private double Round(double value) => QueryHelper.IsInteger(value) ? value : Math.Round(value, 1);
+        private static double Round(double value) => QueryHelper.IsInteger(value) ? value : Math.Round(value, 1);
     }
 }

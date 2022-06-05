@@ -38,7 +38,7 @@ namespace JogTracker.Api
             var configuration = serviceProvider.GetService<IConfiguration>();
             var connectionString = configuration.ConnectionString;
 
-            services.AddDbContext<ApplicationContext>(options => options.EnableSensitiveDataLogging().UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
             InitializeDatabase(services);
         }

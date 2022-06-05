@@ -29,6 +29,7 @@ namespace JogTracker.Models.Requests.Users
         FirstName,
         LastName,
         Username,
-        Role
+        Role,
+        TotalJogs
     }
 }

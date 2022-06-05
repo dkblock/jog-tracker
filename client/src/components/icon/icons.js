@@ -12,6 +12,7 @@ const icons = {
   [iconTypes.DELETE]: materialIcons.Delete,
   [iconTypes.DONE]: materialIcons.Done,
   [iconTypes.EDIT]: materialIcons.Edit,
+  [iconTypes.FLAG]: materialIcons.Flag,
   [iconTypes.HELP]: materialIcons.Help,
   [iconTypes.INFO]: materialIcons.Info,
   [iconTypes.LAUNCH]: materialIcons.Launch,
