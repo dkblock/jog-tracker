@@ -9,12 +9,12 @@ namespace JogTracker.Api.Validators
 {
     public interface IJogsValidator
     {
-        ValidationResult Validate(CreateJogCommand payload);
+        ValidationResult Validate(JogPayloadCommand payload);
     }
 
     public class JogsValidator : IJogsValidator
     {
-        public ValidationResult Validate(CreateJogCommand payload)
+        public ValidationResult Validate(JogPayloadCommand payload)
         {
             var validationErrors = new List<ValidationError>();
 
@@ -29,7 +29,7 @@ namespace JogTracker.Api.Validators
             };
         }
 
-        private IEnumerable<ValidationError> ValidateDistance(CreateJogCommand payload)
+        private IEnumerable<ValidationError> ValidateDistance(JogPayloadCommand payload)
         {
             var validationErrors = new List<ValidationError>();
 
@@ -51,48 +51,34 @@ namespace JogTracker.Api.Validators
                 validationErrors.Add(new ValidationError
                 {
                     Field = nameof(payload.DistanceInMeters).ToLowerCamelCase(),
-                    Message = "Distance should be a positive number"
+                    Message = "Distance should be greater than 0"
                 });
 
             if (payload.DistanceInKilometers.HasValue && payload.DistanceInKilometers.Value <= 0)
                 validationErrors.Add(new ValidationError
                 {
                     Field = nameof(payload.DistanceInKilometers).ToLowerCamelCase(),
-                    Message = "Distance should be a positive number"
+                    Message = "Distance should be greater than 0"
                 });
 
             return validationErrors;
         }
 
-        private IEnumerable<ValidationError> ValidateTime(CreateJogCommand comand)
+        private IEnumerable<ValidationError> ValidateTime(JogPayloadCommand payload)
         {
             var validationErrors = new List<ValidationError>();
 
-            if (comand.ElapsedTime.Hours < 0)
+            if (new TimeSpan(payload.ElapsedTime.Hours, payload.ElapsedTime.Minutes, payload.ElapsedTime.Seconds).TotalSeconds <= 0)
                 validationErrors.Add(new ValidationError
                 {
-                    Field = nameof(comand.ElapsedTime.Hours).ToLowerCamelCase(),
-                    Message = "Hours should not be a negative number"
-                });
-
-            if (comand.ElapsedTime.Minutes < 0 || comand.ElapsedTime.Minutes > 59)
-                validationErrors.Add(new ValidationError
-                {
-                    Field = nameof(comand.ElapsedTime.Minutes).ToLowerCamelCase(),
-                    Message = "Minutes should be in the range from 0 to 59"
-                });
-
-            if (comand.ElapsedTime.Minutes < 0 || comand.ElapsedTime.Seconds > 59)
-                validationErrors.Add(new ValidationError
-                {
-                    Field = nameof(comand.ElapsedTime.Seconds).ToLowerCamelCase(),
-                    Message = "Seconds should be in the range from 0 to 59"
+                    Field = "time",
+                    Message = "Invalid time"
                 });
 
             return validationErrors;
         }
 
-        private IEnumerable<ValidationError> ValidateDate(CreateJogCommand payload)
+        private IEnumerable<ValidationError> ValidateDate(JogPayloadCommand payload)
         {
             var validationErrors = new List<ValidationError>();
 
@@ -100,7 +86,7 @@ namespace JogTracker.Api.Validators
                 validationErrors.Add(new ValidationError
                 {
                     Field = nameof(payload.Date).ToLowerCamelCase(),
-                    Message = "Incorrect date"
+                    Message = "Invalid date"
                 });
 
             return validationErrors;

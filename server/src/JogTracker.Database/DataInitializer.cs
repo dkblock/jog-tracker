@@ -39,15 +39,15 @@ namespace JogTracker.Database
 
         public async Task InitializeAdministrator()
         {
-            var administratorUsername = "administrator";
+            var administratorUsername = _configuration.IdentitySettings.AdministratorUsername;
             var administratorPassword = _configuration.IdentitySettings.AdministratorPassword;
 
             if (await _userManager.FindByNameAsync(administratorUsername) == null)
             {
                 var administrator = new UserEntity
                 {
-                    FirstName = "Administrator",
-                    LastName = "Administrator",
+                    FirstName = administratorUsername,
+                    LastName = administratorUsername,
                     UserName = administratorUsername,
                 };
 

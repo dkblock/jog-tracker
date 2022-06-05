@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { register } from '../../actions';
+import { register } from '../../store/actions';
 import { useCurrentUser } from '../../hooks';
 import accountValidator from '../../utils/validation/account-validator';
 import { SELECTORS } from '../../store';
@@ -10,6 +10,7 @@ import { Button, Paper, Route, TextField } from '../../components';
 const Register = () => {
   const dispatch = useDispatch();
   const isFetching = useSelector(SELECTORS.ACCOUNT.getIsSendingCredentials);
+  const serverErrors = useSelector(SELECTORS.ACCOUNT.getErrors);
   const { isAuthenticated } = useCurrentUser();
 
   const [userName, setUserName] = useState('');
@@ -17,7 +18,11 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [validationErrors, setValidationErrors] = useState({});
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setErrors({ ...errors, ...serverErrors });
+  }, [serverErrors]);
 
   const handleUserNameChange = (value) => setUserName(value);
   const handleFirstNameChange = (value) => setFirstName(value);
@@ -25,21 +30,21 @@ const Register = () => {
   const handlePasswordChange = (value) => setPassword(value);
   const handleConfirmPasswordChange = (value) => setConfirmPassword(value);
 
-  const handleUserNameFocus = () => setValidationErrors((prev) => ({ ...prev, userName: null }));
-  const handleFirstNameFocus = () => setValidationErrors((prev) => ({ ...prev, firstName: null }));
-  const handleLastNameFocus = () => setValidationErrors((prev) => ({ ...prev, lastName: null }));
-  const handlePasswordFocus = () => setValidationErrors((prev) => ({ ...prev, password: null }));
-  const handleConfirmPasswordFocus = () => setValidationErrors((prev) => ({ ...prev, confirmPassword: null }));
+  const handleUserNameFocus = () => setErrors((prev) => ({ ...prev, userName: null }));
+  const handleFirstNameFocus = () => setErrors((prev) => ({ ...prev, firstName: null }));
+  const handleLastNameFocus = () => setErrors((prev) => ({ ...prev, lastName: null }));
+  const handlePasswordFocus = () => setErrors((prev) => ({ ...prev, password: null }));
+  const handleConfirmPasswordFocus = () => setErrors((prev) => ({ ...prev, confirmPassword: null }));
 
   const handleSubmit = () => {
     const credentials = { userName, firstName, lastName, password, confirmPassword };
-    const { isValid, validationErrors: nextValidationErrors } = accountValidator.validateOnRegister(credentials);
+    const { isValid, errors: nextErrors } = accountValidator.validateOnRegister(credentials);
 
     if (isValid) {
-      setValidationErrors({});
+      setErrors({});
       dispatch(register({ credentials }));
     } else {
-      setValidationErrors(nextValidationErrors);
+      setErrors(nextErrors);
     }
   };
 
@@ -49,14 +54,14 @@ const Register = () => {
 
   return (
     <div className="account-sign">
-      <Paper className="account-sign-form">
+      <Paper className="input-form account-sign-form">
         <img className="account-sign-form__logo" src="/public/logo.svg" alt="logo" />
         <TextField
           className="account-sign-form__control"
           label="Username"
           value={userName}
-          error={Boolean(validationErrors.userName)}
-          helperText={validationErrors.userName}
+          error={Boolean(errors.userName)}
+          helperText={errors.userName}
           onChange={handleUserNameChange}
           onFocus={handleUserNameFocus}
         />
@@ -64,8 +69,8 @@ const Register = () => {
           className="account-sign-form__control"
           label="First name"
           value={firstName}
-          error={Boolean(validationErrors.firstName)}
-          helperText={validationErrors.firstName}
+          error={Boolean(errors.firstName)}
+          helperText={errors.firstName}
           onChange={handleFirstNameChange}
           onFocus={handleFirstNameFocus}
         />
@@ -73,8 +78,8 @@ const Register = () => {
           className="account-sign-form__control"
           label="Last name"
           value={lastName}
-          error={Boolean(validationErrors.lastName)}
-          helperText={validationErrors.lastName}
+          error={Boolean(errors.lastName)}
+          helperText={errors.lastName}
           onChange={handleLastNameChange}
           onFocus={handleLastNameFocus}
         />
@@ -83,8 +88,8 @@ const Register = () => {
           label="Password"
           value={password}
           type="password"
-          error={Boolean(validationErrors.password)}
-          helperText={validationErrors.password}
+          error={Boolean(errors.password)}
+          helperText={errors.password}
           onChange={handlePasswordChange}
           onFocus={handlePasswordFocus}
         />
@@ -93,8 +98,8 @@ const Register = () => {
           label="Confirm password"
           value={confirmPassword}
           type="password"
-          error={Boolean(validationErrors.confirmPassword)}
-          helperText={validationErrors.confirmPassword}
+          error={Boolean(errors.confirmPassword)}
+          helperText={errors.confirmPassword}
           onChange={handleConfirmPasswordChange}
           onFocus={handleConfirmPasswordFocus}
         />

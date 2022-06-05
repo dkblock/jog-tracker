@@ -24,22 +24,26 @@ namespace JogTracker.Mappers
                 .ForMember(dest => dest.DistanceInMeters, src => src.MapFrom(src => ToMeters(src)))
                 .ForMember(dest => dest.ElapsedTimeInSeconds, src => src.MapFrom(src => ToTimeInSeconds(src)))
                 .ForMember(dest => dest.AverageSpeedInMetersPerSecond, src => src.MapFrom(src => ToMetersPerSecond(src)));
+
+            CreateMap<UpdateJogCommand, JogEntity>()
+                .ForMember(dest => dest.DistanceInMeters, src => src.MapFrom(src => ToMeters(src)))
+                .ForMember(dest => dest.ElapsedTimeInSeconds, src => src.MapFrom(src => ToTimeInSeconds(src)))
+                .ForMember(dest => dest.AverageSpeedInMetersPerSecond, src => src.MapFrom(src => ToMetersPerSecond(src)));
         }
 
-        private double ToMeters(CreateJogCommand source)
+        private double ToMeters(JogPayloadCommand source)
         {
             return source.DistanceInMeters.HasValue
-                ? Round(source.DistanceInMeters.Value)
-                : Round(source.DistanceInKilometers.Value * MetersInOneKilometerRatio);
+                ? (source.DistanceInMeters.Value)
+                : (source.DistanceInKilometers.Value * MetersInOneKilometerRatio);
         }
 
         private double ToKilometers(JogEntity source)
         {
-            var value = source.DistanceInMeters / MetersInOneKilometerRatio;
-            return Round(value);
+            return source.DistanceInMeters / MetersInOneKilometerRatio;
         }
 
-        private double ToMetersPerSecond(CreateJogCommand source)
+        private double ToMetersPerSecond(JogPayloadCommand source)
         {
             return Round(ToMeters(source) / ToTimeInSeconds(source));
         }
@@ -56,7 +60,7 @@ namespace JogTracker.Mappers
             return new JogTime(time.Hours, time.Minutes, time.Seconds);
         }
 
-        private int ToTimeInSeconds(CreateJogCommand source)
+        private int ToTimeInSeconds(JogPayloadCommand source)
         {
             return (int)new TimeSpan(source.ElapsedTime.Hours, source.ElapsedTime.Minutes, source.ElapsedTime.Seconds).TotalSeconds;
         }

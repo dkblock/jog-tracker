@@ -4,7 +4,7 @@ import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
-import { logout } from '../../actions';
+import { logout } from '../../store/actions';
 import { useCurrentUser } from '../../hooks';
 import { navigateToLogin, navigateToRegister } from '../../utils/navigator';
 import { Avatar, Button, Icon, Loader } from '../../components';
@@ -66,7 +66,7 @@ const AppHeaderAccount = () => {
               <div className="app-header__menu-divider" />
               <MenuItem onClick={handleLogoutClick}>
                 <ListItemIcon>
-                  <Icon type={Icon.types.logout} />
+                  <Icon type={Icon.types.LOGOUT} />
                 </ListItemIcon>
                 Logout
               </MenuItem>

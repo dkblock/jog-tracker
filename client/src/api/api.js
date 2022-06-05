@@ -16,6 +16,9 @@ const api = {
 
   fetchJogs: (params) => buildUrl('api/jogs', params),
   fetchJog: (id) => buildUrl(`api/jogs/${id}`),
+  createJog: () => buildUrl('api/jogs'),
+  deleteJog: (id) => buildUrl(`api/jogs/${id}`),
+  updateJog: (id) => buildUrl(`api/jogs/${id}`),
 
   fetchUsers: () => buildUrl('api/users'),
 };

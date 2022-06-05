@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { authenticate, login, logout, register } from '../../actions';
+import { authenticate, login, logout, register } from '../actions';
 import { getAccessToken } from '../../utils/local-storage-manager';
 
 const initialState = {
@@ -88,6 +88,7 @@ const SELECTORS = {
   getIsAuthenticated: (state) => state.ACCOUNT.isAuthenticated,
   getIsFetching: (state) => state.ACCOUNT.isFetching,
   getIsSendingCredentials: (state) => state.ACCOUNT.isSendingCredentials,
+  getErrors: (state) => state.ACCOUNT.validationErrors,
 };
 
 export { SELECTORS, accountReducer };

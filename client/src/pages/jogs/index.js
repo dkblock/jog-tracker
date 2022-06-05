@@ -7,7 +7,7 @@ import './jogs.scss';
 const Jogs = () => {
   return (
     <div className="jogs-container">
-      <Paper>
+      <Paper className="jogs-list">
         <JogsList />
       </Paper>
     </div>

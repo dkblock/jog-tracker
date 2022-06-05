@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JogTracker.Common.Constants;
 using JogTracker.Common.Helpers;
 using JogTracker.Entities;
 using JogTracker.Models.DTO;
@@ -18,56 +19,66 @@ namespace JogTracker.Api.Handlers.Jogs
     public class GetJogsQueryHandler : IRequestHandler<GetJogsQuery, PageResponse<Jog>>
     {
         private readonly IJogsRepository _jogsRepository;
+        private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;
 
-        public GetJogsQueryHandler(IJogsRepository jogsRepository, IMapper mapper)
+        public GetJogsQueryHandler(IJogsRepository jogsRepository, IUsersRepository usersRepository, IMapper mapper)
         {
             _jogsRepository = jogsRepository;
+            _usersRepository = usersRepository;
             _mapper = mapper;
         }
 
-        public Task<PageResponse<Jog>> Handle(GetJogsQuery request, CancellationToken cancellationToken)
+        public async Task<PageResponse<Jog>> Handle(GetJogsQuery query, CancellationToken cancellationToken)
         {
             var jogs = _jogsRepository
                 .GetQueryable()
                 .Include(j => j.User)
                 .AsQueryable();
 
-            if (request.OnlyOwn && !string.IsNullOrEmpty(request.UserId))
-                jogs = jogs.Where(j => j.UserId == request.UserId);
+            if (query.OnlyOwn && !string.IsNullOrEmpty(query.UserId))
+                jogs = jogs.Where(j => j.UserId == query.UserId);
 
-            if (request.DateFrom.HasValue)
-                jogs = jogs.Where(j => j.Date >= request.DateFrom);
+            if (query.DateFrom.HasValue)
+                jogs = jogs.Where(j => j.Date.Date >= query.DateFrom.Value.Date);
 
-            if (request.DateTo.HasValue)
-                jogs = jogs.Where(j => j.Date <= request.DateTo);
+            if (query.DateTo.HasValue)
+                jogs = jogs.Where(j => j.Date.Date <= query.DateTo.Value.Date);
 
-            if (!string.IsNullOrEmpty(request.SearchText))
-                jogs = jogs.Where(j => 
-                    QueryHelper.IsMatch(request.SearchText, j.User.UserName) ||
-                    QueryHelper.IsMatch(request.SearchText, j.User.FirstName) ||
-                    QueryHelper.IsMatch(request.SearchText, j.User.LastName));
+            if (!string.IsNullOrEmpty(query.SearchText))
+                jogs = jogs.Where(j =>
+                    j.User.FirstName.ToLower().Contains(query.SearchText) ||
+                    j.User.LastName.ToLower().Contains(query.SearchText) ||
+                    j.User.UserName.ToLower().Contains(query.SearchText));
 
-            var sortedJogs = request.SortByDesc
-                ? jogs.OrderByDescending(JogsSortModel[request.SortBy])
-                : jogs.OrderBy(JogsSortModel[request.SortBy]);
+            var sortedJogs = query.SortByDesc
+                ? jogs.OrderByDescending(JogsSortModel[query.SortBy])
+                : jogs.OrderBy(JogsSortModel[query.SortBy]);
 
             var result = sortedJogs
-                .Skip(request.PageSize * (request.PageIndex - 1))
-                .Take(request.PageSize);
+                .Skip(query.PageSize * (query.PageIndex - 1))
+                .Take(query.PageSize);
 
-            return Task.FromResult(new PageResponse<Jog>
+            var page = _mapper.Map<IList<Jog>>(result);
+            var isAdmin = !string.IsNullOrEmpty(query.UserId) && await _usersRepository.GetRole(query.UserId) == Roles.Administrator;
+
+            foreach (var jog in page)
             {
-                Page = _mapper.Map<IEnumerable<Jog>>(result),
+                jog.HasAccess = jog.User.Id == query.UserId || isAdmin;
+            }
+
+            return new PageResponse<Jog>
+            {
+                Page = page,
                 TotalCount = sortedJogs.Count(),
-            });
+            };
         }
 
         private IDictionary<JogSortBy, Func<JogEntity, object>> JogsSortModel =>
             new Dictionary<JogSortBy, Func<JogEntity, object>>
             {
                 { JogSortBy.Name, x => $"{x.User.LastName} {x.User.FirstName}" },
-                { JogSortBy.Username, x => $"{x.User.LastName} {x.User.FirstName}" },
+                { JogSortBy.Username, x => x.User.UserName },
                 { JogSortBy.Date, x => x.Date },
                 { JogSortBy.Distance, x => x.DistanceInMeters },
                 { JogSortBy.ElapsedTime, x => x.ElapsedTimeInSeconds },

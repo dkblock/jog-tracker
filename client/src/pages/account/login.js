@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { login } from '../../actions';
+import { login } from '../../store/actions';
 import { useCurrentUser } from '../../hooks';
 import accountValidator from '../../utils/validation/account-validator';
 import { SELECTORS } from '../../store';
@@ -10,27 +10,32 @@ import { Button, Paper, Route, TextField } from '../../components';
 const Login = () => {
   const dispatch = useDispatch();
   const isFetching = useSelector(SELECTORS.ACCOUNT.getIsSendingCredentials);
+  const serverErrors = useSelector(SELECTORS.ACCOUNT.getErrors);
   const { isAuthenticated } = useCurrentUser();
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [validationErrors, setValidationErrors] = useState({});
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setErrors({ ...errors, ...serverErrors });
+  }, [serverErrors]);
 
   const handleUserNameChange = (value) => setUserName(value);
   const handlePasswordChange = (value) => setPassword(value);
 
-  const handleUserNameFocus = () => setValidationErrors((prev) => ({ ...prev, userName: null }));
-  const handlePasswordFocus = () => setValidationErrors((prev) => ({ ...prev, password: null }));
+  const handleUserNameFocus = () => setErrors((prev) => ({ ...prev, userName: null }));
+  const handlePasswordFocus = () => setErrors((prev) => ({ ...prev, password: null }));
 
   const handleSubmit = () => {
     const credentials = { userName, password };
-    const { isValid, validationErrors: nextValidationErrors } = accountValidator.validateOnLogin(credentials);
+    const { isValid, errors: nextErrors } = accountValidator.validateOnLogin(credentials);
 
     if (isValid) {
-      setValidationErrors({});
+      setErrors({});
       dispatch(login({ credentials }));
     } else {
-      setValidationErrors(nextValidationErrors);
+      setErrors(nextErrors);
     }
   };
 
@@ -40,14 +45,14 @@ const Login = () => {
 
   return (
     <form className="account-sign">
-      <Paper className="account-sign-form">
+      <Paper className="input-form account-sign-form">
         <img className="account-sign-form__logo" src="/public/logo.svg" alt="logo" />
         <TextField
           className="account-sign-form__control"
           label="Username"
           value={userName}
-          error={Boolean(validationErrors.userName)}
-          helperText={validationErrors.userName}
+          error={Boolean(errors.userName)}
+          helperText={errors.userName}
           onChange={handleUserNameChange}
           onFocus={handleUserNameFocus}
         />
@@ -56,8 +61,8 @@ const Login = () => {
           label="Password"
           value={password}
           type="password"
-          error={Boolean(validationErrors.password)}
-          helperText={validationErrors.password}
+          error={Boolean(errors.password)}
+          helperText={errors.password}
           onChange={handlePasswordChange}
           onFocus={handlePasswordFocus}
         />

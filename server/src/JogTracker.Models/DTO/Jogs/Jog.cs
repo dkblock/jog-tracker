@@ -11,6 +11,7 @@ namespace JogTracker.Models.DTO.Jogs
         public double DistanceInKilometers { get; set; }
         public double AverageSpeedInMetersPerSecond { get; set; }
         public double AverageSpeedInKilometersPerHour { get; set; }
+        public bool HasAccess { get; set; }
         public JogTime ElapsedTime { get; set; }
         public User User { get; set; }
     }

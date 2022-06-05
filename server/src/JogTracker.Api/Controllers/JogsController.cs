@@ -66,5 +66,16 @@ namespace JogTracker.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpPut]
+        [Route("{jogId}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateJog([FromBody] UpdateJogCommand payload)
+        {
+            payload.UserId = User.GetUserId();
+            var updatedJog = await _mediator.Send(payload);
+
+            return Ok(updatedJog);
+        }
     }
 }

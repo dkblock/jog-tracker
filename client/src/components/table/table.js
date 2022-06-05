@@ -72,7 +72,6 @@ const Table = ({
           page={page}
           rowsPerPage={pageSize}
           count={totalCount}
-          labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
           onPageChange={handleChangePage}
         />
       )}

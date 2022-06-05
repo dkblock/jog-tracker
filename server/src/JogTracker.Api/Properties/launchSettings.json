@@ -27,6 +27,7 @@
         "Identity__Secret": "JOG_TRACKER_SECRET",
         "Identity__AccessTokenLifetimeInMinutes": "30",
         "Identity__RefreshTokenLifetimeInDays": "30",
+        "Identity__AdministratorUsername": "administrator",
         "Identity__AdministratorPassword": "administrator"
       },
       "applicationUrl": "http://localhost:5000"

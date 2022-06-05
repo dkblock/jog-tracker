@@ -13,29 +13,33 @@ const getActionsCell = (getActionsFn, row) => {
 
   return (
     <div className="table-actions-cell">
-      {actions.map((action) => (
-        <Tooltip key={action.label} title={action.label} placement="bottom">
-          <IconButton type={action.icon} disabled={action.disabled} onClick={(e) => handleClick(e, action.onClick)} />
-        </Tooltip>
-      ))}
+      {actions.map((action) =>
+        action.disabled ? (
+          <IconButton key={action.label} type={action.icon} disabled />
+        ) : (
+          <Tooltip key={action.label} title={action.label} placement="bottom">
+            <IconButton type={action.icon} onClick={(e) => handleClick(e, action.onClick)} />
+          </Tooltip>
+        ),
+      )}
     </div>
   );
 };
 
-export const prepareColumns = (columns, actions, onSort) => {
+export const prepareColumns = (columns, getActionsFn, onSort) => {
   const preparedColumns = columns.map((column) => ({
     ...column,
     sortable: Boolean(onSort) && column.sortable !== false,
   }));
 
-  if (actions)
+  if (getActionsFn)
     preparedColumns.push({
       id: 'TABLE_ACTIONS',
       label: '',
       align: 'center',
-      width: actions.length * 60,
+      width: getActionsFn({}).length,
       sortable: false,
-      renderCell: (row) => getActionsCell(actions, row),
+      renderCell: (row) => getActionsCell(getActionsFn, row),
     });
 
   return preparedColumns;

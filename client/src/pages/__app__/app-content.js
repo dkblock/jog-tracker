@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch } from 'react-router-dom';
 
-import { authenticate } from '../../actions';
+import { authenticate } from '../../store/actions';
 import { useCurrentUser } from '../../hooks';
 import Account from '../account';
-import Jogs from '../jogs/jogs';
-import { ModalRoot, Route } from '../../components';
+import Jogs from '../jogs';
+import ModalRoot from './modal-root';
+import { Route } from '../../components';
 import './app.scss';
 
 const AppContent = () => {

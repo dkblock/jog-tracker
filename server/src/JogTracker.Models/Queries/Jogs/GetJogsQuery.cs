@@ -18,7 +18,7 @@ namespace JogTracker.Models.Queries.Jogs
             bool sortByDesc,
             string userId)
         {
-            SearchText = searchText;
+            SearchText = searchText?.ToLower();
             DateFrom = dateFrom;
             DateTo = dateTo;
             OnlyOwn = onlyOwn;

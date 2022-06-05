@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { showModal, hideModal } from '../../actions';
+import { showModal, hideModal } from '../actions';
 
 const initialState = {
   modalType: null,
@@ -21,4 +21,8 @@ const modalReducer = createSlice({
   },
 }).reducer;
 
-export { modalReducer };
+const SELECTORS = {
+  props: (state) => ({ props: state.MODAL.modalProps, type: state.MODAL.modalType }),
+};
+
+export { SELECTORS, modalReducer };

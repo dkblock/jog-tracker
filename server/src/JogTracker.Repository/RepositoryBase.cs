@@ -1,11 +1,13 @@
 ﻿using JogTracker.Database;
+using JogTracker.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace JogTracker.Repository
 {
-    public interface IRepositoryBase<T> where T : class
+    public interface IRepositoryBase<T> where T : BaseEntity
     {
         Task Create(T entity);
         Task<T> Get(string id);
@@ -16,7 +18,7 @@ namespace JogTracker.Repository
         Task SaveChanges();
     }
 
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    public class RepositoryBase<T> : IRepositoryBase<T> where T : BaseEntity
     {
         private readonly ApplicationContext _context;
         private readonly DbSet<T> _entities;
@@ -35,7 +37,9 @@ namespace JogTracker.Repository
 
         public async Task<T> Get(string id)
         {
-            return await _entities.FindAsync(id);
+            return await _entities
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public IQueryable<T> GetQueryable()
@@ -50,13 +54,13 @@ namespace JogTracker.Repository
 
         public async Task Delete(T entity)
         {
-            await Task.FromResult(_entities.Remove(entity));
+            _entities.Remove(entity);
             await SaveChanges();
         }
 
         public async Task Update(T entity)
         {
-            await Task.FromResult(_entities.Update(entity));
+            _entities.Update(entity);
             await SaveChanges();
         }
 

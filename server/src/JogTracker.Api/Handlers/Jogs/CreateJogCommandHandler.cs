@@ -34,9 +34,14 @@ namespace JogTracker.Api.Handlers.Jogs
 
             var entity = _mapper.Map<JogEntity>(payload);
             entity.Id = Guid.NewGuid().ToString();
-            await _jogsRepository.Create(entity);
 
-            return _mapper.Map<Jog>(entity);
+            await _jogsRepository.Create(entity);
+            entity = await _jogsRepository.GetWithChildren(entity.Id);
+
+            var result = _mapper.Map<Jog>(entity);
+            result.HasAccess = true;
+
+            return result;
         }
     }
 }

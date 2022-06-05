@@ -1,9 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { accountService } from '../api';
-import statusCode from '../utils/status-code-reader';
-import { navigateToJogs } from '../utils/navigator';
-import { clearAccessToken, clearRefreshToken, setAccessToken, setRefreshToken } from '../utils/local-storage-manager';
+import { accountService } from '../../api';
+import statusCode from '../../utils/status-code-reader';
+import { navigateToJogs } from '../../utils/navigator';
+import {
+  clearAccessToken,
+  clearRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from '../../utils/local-storage-manager';
 
 export const authenticate = createAsyncThunk('authenticate', async () => {
   const response = await accountService.authenticate();
@@ -50,7 +55,7 @@ const getAuthenticationResult = async (response) => {
     clearRefreshToken();
 
     const { errors } = await response.json();
-    const validationErrors = errors.reduce((acc, cur) => ({ ...cur, [acc.field]: acc.message }), {});
+    const validationErrors = errors.reduce((acc, cur) => ({ ...acc, [cur.Field]: cur.Message }), {});
 
     return { currentUser: {}, isAuthenticated: false, hasError: true, validationErrors };
   }

@@ -1,9 +1,8 @@
 export const isEmptyString = (str) => !str || /^\s*$/.test(str);
 
-export const getValidationResult = (validationErrors) => ({
-  isValid: isValid(validationErrors),
-  validationErrors,
+export const getValidationResult = (errors) => ({
+  isValid: isValid(errors),
+  errors,
 });
 
-const isValid = (validationErrors) =>
-  Object.keys(validationErrors).filter((key) => validationErrors[key] !== null).length === 0;
+const isValid = (errors) => Object.keys(errors).filter((key) => errors[key] !== null).length === 0;

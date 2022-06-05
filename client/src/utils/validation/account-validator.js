@@ -6,9 +6,9 @@ const accountValidator = () => {
     return null;
   };
 
-  const validatePassword = (password) => {
+  const validatePassword = (password, validateLength = false) => {
     if (isEmptyString(password)) return 'Enter password';
-    if (password.length < 4) return 'The minimum length is 4 characters';
+    if (validateLength && password.length < 4) return 'The minimum length is 4 characters';
     return null;
   };
 
@@ -27,7 +27,7 @@ const accountValidator = () => {
         userName: validateName(userName, 'username'),
         firstName: validateName(firstName, 'name'),
         lastName: validateName(lastName, 'last name'),
-        password: validatePassword(password),
+        password: validatePassword(password, true),
         confirmPassword: validateConfirmPassword(confirmPassword, password),
       };
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Paper as MuiPaper } from '@mui/material';
 
-import './paper.scss';
-
-const Paper = ({ className, children }) => <MuiPaper className={`${className} paper`}>{children}</MuiPaper>;
+const Paper = ({ className, children }) => <MuiPaper className={className}>{children}</MuiPaper>;
 
 export default Paper;
