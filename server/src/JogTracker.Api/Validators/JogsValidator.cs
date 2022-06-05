@@ -1,5 +1,5 @@
 ﻿using JogTracker.Common.Extensions;
-using JogTracker.Models.Commands.Jogs;
+using JogTracker.Models.Requests.Jogs;
 using JogTracker.Models.Validation;
 using System;
 using System.Collections.Generic;

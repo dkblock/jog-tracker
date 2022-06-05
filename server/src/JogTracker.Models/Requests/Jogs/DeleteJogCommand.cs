@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace JogTracker.Models.Commands.Jogs
+namespace JogTracker.Models.Requests.Jogs
 {
     public class DeleteJogCommand : IRequest
     {

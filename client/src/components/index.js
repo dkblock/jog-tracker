@@ -1,6 +1,7 @@
 import { Avatar } from './avatar';
 import { Button } from './button';
 import { DatePicker, DateRangePicker } from './date-picker';
+import { Dropdown } from './dropdown';
 import { Icon, IconButton } from './icon';
 import { Loader } from './loader';
 import { Modal } from './modal';
@@ -16,6 +17,7 @@ export {
   Button,
   DatePicker,
   DateRangePicker,
+  Dropdown,
   Icon,
   IconButton,
   Loader,

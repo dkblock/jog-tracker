@@ -5,11 +5,9 @@ import { deleteJog } from '../../store/actions';
 import { SELECTORS } from '../../store';
 import { Modal } from '../../components';
 
-const DeleteJogModal = ({ onClose }) => {
+const DeleteJogModal = ({ jog, onClose }) => {
   const dispatch = useDispatch();
-  const { props } = useSelector(SELECTORS.MODAL.props);
   const { isSaving } = useSelector(SELECTORS.JOGS.getFetching);
-  const { jog } = props;
 
   return (
     <Modal.Delete

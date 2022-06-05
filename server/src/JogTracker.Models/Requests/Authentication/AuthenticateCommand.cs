@@ -1,7 +1,7 @@
 ﻿using JogTracker.Models.DTO.Users;
 using MediatR;
 
-namespace JogTracker.Models.Commands.Authentication
+namespace JogTracker.Models.Requests.Authentication
 {
     public class AuthenticateCommand : IRequest<User>
     {

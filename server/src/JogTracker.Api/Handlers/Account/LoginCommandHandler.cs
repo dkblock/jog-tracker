@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using JogTracker.Api.Validators;
 using JogTracker.Common.Exceptions;
-using JogTracker.Entities;
 using JogTracker.Identity;
-using JogTracker.Models.Commands.Account;
 using JogTracker.Models.DTO.Account;
 using JogTracker.Models.DTO.Users;
+using JogTracker.Models.Requests.Account;
 using JogTracker.Repository;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -45,8 +43,6 @@ namespace JogTracker.Api.Handlers.Account
 
             var userEntity = await _usersRepository.GetByUserName(request.UserName);
             var user = _mapper.Map<User>(userEntity);
-            user.Role = await _usersRepository.GetRole(userEntity.Id);
-
             var authResult = _authenticationService.Authenticate(user);
             await _mediator.Send(new CreateRefreshTokenCommand(authResult.Jwt.RefreshToken, userEntity.Id));
 

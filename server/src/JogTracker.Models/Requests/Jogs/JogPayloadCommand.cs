@@ -1,7 +1,7 @@
 ﻿using JogTracker.Models.DTO.Jogs;
 using System;
 
-namespace JogTracker.Models.Commands.Jogs
+namespace JogTracker.Models.Requests.Jogs
 {
     public class JogPayloadCommand
     {

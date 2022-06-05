@@ -49,6 +49,7 @@ namespace JogTracker.Database
                     FirstName = administratorUsername,
                     LastName = administratorUsername,
                     UserName = administratorUsername,
+                    Role = Roles.Administrator,
                 };
 
                 await _userManager.CreateAsync(administrator, administratorPassword);

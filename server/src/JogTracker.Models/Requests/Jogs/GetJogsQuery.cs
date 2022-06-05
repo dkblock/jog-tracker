@@ -3,7 +3,7 @@ using JogTracker.Models.DTO.Jogs;
 using MediatR;
 using System;
 
-namespace JogTracker.Models.Queries.Jogs
+namespace JogTracker.Models.Requests.Jogs
 {
     public class GetJogsQuery : IRequest<PageResponse<Jog>>
     {
@@ -14,7 +14,7 @@ namespace JogTracker.Models.Queries.Jogs
             bool onlyOwn,
             int pageSize,
             int pageIndex,
-            JogSortBy sortBy,
+            JogsSortBy sortBy,
             bool sortByDesc,
             string userId)
         {
@@ -35,12 +35,12 @@ namespace JogTracker.Models.Queries.Jogs
         public bool OnlyOwn { get; set; }
         public int PageSize { get; set; }
         public int PageIndex { get; set; }
-        public JogSortBy SortBy { get; set; }
+        public JogsSortBy SortBy { get; set; }
         public bool SortByDesc { get; set; }
         public string UserId { get; set; }
     }
 
-    public enum JogSortBy
+    public enum JogsSortBy
     {
         Name,
         Username,

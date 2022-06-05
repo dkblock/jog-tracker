@@ -1,0 +1,16 @@
+.users-container {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  height: calc(100vh - 81px);
+  padding: 18px;
+}
+
+.users-list {
+  width: 100%;
+  padding: 0 18px;
+
+  &__control {
+    width: 200px;
+  }
+}

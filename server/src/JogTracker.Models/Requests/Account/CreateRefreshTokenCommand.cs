@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace JogTracker.Models.Commands.Account
+namespace JogTracker.Models.Requests.Account
 {
     public class CreateRefreshTokenCommand : IRequest
     {

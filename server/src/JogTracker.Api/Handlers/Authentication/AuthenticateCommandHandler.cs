@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using JogTracker.Models.Commands.Authentication;
 using JogTracker.Models.DTO.Users;
+using JogTracker.Models.Requests.Authentication;
 using JogTracker.Repository;
 using MediatR;
 using System.Threading;
@@ -23,7 +23,6 @@ namespace JogTracker.Api.Handlers.Authentication
         {
             var userEntity = await _usersRepository.GetById(payload.UserId);
             var user = _mapper.Map<User>(userEntity);
-            user.Role = await _usersRepository.GetRole(userEntity.Id);
 
             return user;
         }

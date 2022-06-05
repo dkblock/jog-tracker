@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using JogTracker.Configuration;
 using JogTracker.Entities;
-using JogTracker.Models.Commands.Account;
+using JogTracker.Models.Requests.Account;
 using JogTracker.Repository;
 using MediatR;
 using System;

@@ -1,5 +1,6 @@
 ﻿using JogTracker.Common.Settings;
 using System;
+using IAppConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace JogTracker.Configuration
 {
@@ -12,6 +13,13 @@ namespace JogTracker.Configuration
 
     public class Configuration : IConfiguration
     {
+        private readonly IAppConfiguration _appConfiguration;
+
+        public Configuration(IAppConfiguration appConfiguration)
+        {
+            _appConfiguration = appConfiguration;
+        }
+
         public string ConnectionString => GetValue("ConnectionStrings__Default");
         public string ClientUrl => GetValue("Client__Url");
 
@@ -26,7 +34,7 @@ namespace JogTracker.Configuration
 
         private string GetValue(string name)
         {
-            return Environment.GetEnvironmentVariable(name);
+            return Environment.GetEnvironmentVariable(name) ?? _appConfiguration[name];
         }
     }    
 }

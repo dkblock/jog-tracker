@@ -2,8 +2,8 @@
 using JogTracker.Api.Validators;
 using JogTracker.Common.Exceptions;
 using JogTracker.Entities;
-using JogTracker.Models.Commands.Jogs;
 using JogTracker.Models.DTO.Jogs;
+using JogTracker.Models.Requests.Jogs;
 using JogTracker.Repository;
 using MediatR;
 using System;

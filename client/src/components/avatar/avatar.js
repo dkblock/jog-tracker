@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 
 const Avatar = ({ className, firstName, lastName, onClick }) => {
   const classes = useStyles();
-  const content = firstName && lastName ? `${firstName[0]}${lastName[0]}` : '?';
+  const content = firstName && lastName ? `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}` : '?';
 
   return (
     <MuiAvatar className={`${className} ${classes.primary}`} onClick={onClick ?? null}>

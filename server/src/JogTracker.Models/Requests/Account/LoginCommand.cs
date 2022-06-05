@@ -1,7 +1,7 @@
 ﻿using JogTracker.Models.DTO.Account;
 using MediatR;
 
-namespace JogTracker.Models.Commands.Account
+namespace JogTracker.Models.Requests.Account
 {
     public class LoginCommand : IRequest<AuthResult>
     {

@@ -30,7 +30,7 @@ const prepareColumns = (showInKm) => [
   {
     id: 'avatar',
     label: ' ',
-    width: 64,
+    width: 32,
     renderCell: (row) => <Avatar firstName={row.user.firstName} lastName={row.user.lastName} />,
   },
   { id: 'name', label: 'Name' },
@@ -97,6 +97,7 @@ const JogsList = () => {
       columns={columns}
       data={data}
       actions={actions}
+      emptyText="No results"
       isFetching={isFetching}
       totalCount={totalCount}
       pageIndex={pageIndex}

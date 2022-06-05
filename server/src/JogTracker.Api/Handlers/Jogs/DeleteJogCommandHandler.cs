@@ -1,7 +1,7 @@
 ﻿using JogTracker.Common.Constants;
 using JogTracker.Common.Exceptions;
 using JogTracker.Entities;
-using JogTracker.Models.Commands.Jogs;
+using JogTracker.Models.Requests.Jogs;
 using JogTracker.Repository;
 using MediatR;
 using System.Threading;
@@ -25,19 +25,19 @@ namespace JogTracker.Api.Handlers.Jogs
             if (!await _jogsRepository.Exists(payload.Id))
                 throw new NotFoundException();
 
-            var entity = await _jogsRepository.Get(payload.Id);
-            var userRole = await _usersRepository.GetRole(payload.UserId);
+            var entity = await _jogsRepository.GetWithChildren(payload.Id);
+            var currentUser = await _usersRepository.GetById(payload.UserId);
 
-            if (!HasAccessToJog(entity, payload.UserId, userRole))
+            if (!HasAccessToJog(entity, currentUser))
                 throw new ForbiddenException();
 
             await _jogsRepository.Delete(entity);
             return Unit.Value;
         }
 
-        private bool HasAccessToJog(JogEntity entity, string userId, string userRole)
+        private bool HasAccessToJog(JogEntity entity, UserEntity currentUser)
         {
-            return entity.UserId == userId || userRole == Roles.Administrator;
+            return entity.UserId == currentUser.Id || currentUser.Role == Roles.Administrator;
         }
     }
 }

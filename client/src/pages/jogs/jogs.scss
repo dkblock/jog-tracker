@@ -6,6 +6,19 @@
   padding: 18px;
 }
 
+.jogs-list {
+  width: 100%;
+  padding: 0 18px;
+
+  &__search {
+    width: 200px;
+  }
+
+  &__date-picker {
+    padding: 18px;
+  }
+}
+
 .jogs-form {
   &__row {
     display: flex;
@@ -27,18 +40,5 @@
 
   &__timer-control {
     width: 30%;
-  }
-}
-
-.jogs-list {
-  width: 100%;
-  padding: 0 18px;
-
-  &__search {
-    width: 200px;
-  }
-
-  &__date-picker {
-    padding: 18px;
   }
 }

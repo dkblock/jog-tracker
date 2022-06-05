@@ -6,6 +6,7 @@ import { authenticate } from '../../store/actions';
 import { useCurrentUser } from '../../hooks';
 import Account from '../account';
 import Jogs from '../jogs';
+import Users from '../users';
 import ModalRoot from './modal-root';
 import { Route } from '../../components';
 import './app.scss';
@@ -25,6 +26,7 @@ const AppContent = () => {
           <Route path="/" exact component={Jogs} />
           <Route path={Route.routes.account.main} component={Account} />
           <Route path={Route.routes.jogs.main} component={Jogs} />
+          <Route path={Route.routes.users.main} component={Users} />
         </Switch>
       )}
       <ModalRoot />

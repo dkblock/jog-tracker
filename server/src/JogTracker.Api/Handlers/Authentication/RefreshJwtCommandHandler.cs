@@ -1,8 +1,8 @@
 ﻿using JogTracker.Common.Exceptions;
 using JogTracker.Entities;
 using JogTracker.Identity;
-using JogTracker.Models.Commands.Authentication;
 using JogTracker.Models.DTO.Account;
+using JogTracker.Models.Requests.Authentication;
 using JogTracker.Repository;
 using MediatR;
 using System;

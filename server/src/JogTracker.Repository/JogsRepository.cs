@@ -23,8 +23,10 @@ namespace JogTracker.Repository
         public async Task<JogEntity> GetWithChildren(string id)
         {
             return await _context.Jogs
+                .AsNoTracking()
                 .Where(j => j.Id == id)
                 .Include(j => j.User)
+                .AsNoTracking()
                 .SingleOrDefaultAsync();
         }
     }

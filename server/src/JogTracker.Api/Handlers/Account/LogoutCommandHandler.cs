@@ -1,4 +1,4 @@
-﻿using JogTracker.Models.Commands.Account;
+﻿using JogTracker.Models.Requests.Account;
 using JogTracker.Repository;
 using MediatR;
 using System.Threading;

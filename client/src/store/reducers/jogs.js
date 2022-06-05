@@ -11,11 +11,11 @@ const initialState = {
   searchText: '',
   dateFrom: null,
   dateTo: null,
+  showOnlyOwn: false,
   pageIndex: 1,
   pageSize: 20,
   sortBy: 'date',
   sortDirection: 'desc',
-  showOnlyOwn: false,
 
   isFetching: false,
   isSaving: false,
@@ -30,12 +30,12 @@ const jogsReducer = createSlice({
 
       const { searchText, dateFrom, dateTo, pageIndex, sortBy, sortDirection, showOnlyOwn } = arg;
       state.searchText = searchText;
+      state.showOnlyOwn = showOnlyOwn;
       state.dateFrom = dateFrom;
       state.dateTo = dateTo;
       state.pageIndex = pageIndex;
       state.sortBy = sortBy;
       state.sortDirection = sortDirection;
-      state.showOnlyOwn = showOnlyOwn;
     },
     [fetchJogs.fulfilled]: (state, { payload: { jogs, totalCount, hasError } }) => {
       onFulfilledDefault(state, hasError);
@@ -75,7 +75,7 @@ const jogsReducer = createSlice({
       onFulfilledDefault(state, hasError, 'isSaving');
       if (hasError) return;
 
-      state.jogs = state.jogs.filter((j) => j.id !== jogId);
+      state.jogs = state.jogs.filter((jog) => jog.id !== jogId);
       state.totalCount--;
     },
     [deleteJog.rejected]: (state) => {
@@ -106,13 +106,13 @@ const SELECTORS = {
   getTotalCount: (state) => state.JOGS.totalCount,
   getFilter: (state) => ({
     searchText: state.JOGS.searchText,
+    showOnlyOwn: state.JOGS.showOnlyOwn,
     dateFrom: state.JOGS.dateFrom,
     dateTo: state.JOGS.dateTo,
     pageIndex: state.JOGS.pageIndex,
     pageSize: state.JOGS.pageSize,
     sortBy: state.JOGS.sortBy,
     sortDirection: state.JOGS.sortDirection,
-    showOnlyOwn: state.JOGS.showOnlyOwn,
   }),
   getFetching: (state) => ({
     isFetching: state.JOGS.isFetching,

@@ -1,13 +1,12 @@
 ﻿using JogTracker.Models.DTO.Account;
+using JogTracker.Models.Requests.Users;
 using MediatR;
 
-namespace JogTracker.Models.Commands.Account
+namespace JogTracker.Models.Requests.Account
 {
-    public class RegisterCommand : IRequest<AuthResult>
+    public class RegisterCommand : UserNamePayload, IRequest<AuthResult>
     {
         public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
     }

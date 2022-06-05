@@ -1,7 +1,7 @@
 ﻿using JogTracker.Models.DTO.Account;
 using MediatR;
 
-namespace JogTracker.Models.Commands.Authentication
+namespace JogTracker.Models.Requests.Authentication
 {
     public class RefreshJwtCommand : IRequest<JwtPair>
     {

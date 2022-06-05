@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
 import Popover from '@mui/material/Popover';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 
 import { showCreateJogModal } from '../../store/actions';
 import { Button, DateRangePicker, Icon, IconButton, Switch, Table, TextField, Tooltip } from '../../components';
@@ -28,7 +26,7 @@ const JogsListToolbar = ({
   const handleMenuClose = () => setAnchorEl(null);
 
   return (
-    <Table.Toolbar title="Jog results" count={totalCount}>
+    <Table.Toolbar title="Jog Results" count={totalCount}>
       {isAuthenticated && (
         <>
           <Button

@@ -1,16 +1,14 @@
 using JogTracker.Api.Middleware;
+using JogTracker.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using IConfiguration = JogTracker.Configuration.IConfiguration;
 
 namespace JogTracker.Api
 {
     public class Startup
     {
-        public Startup() { }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();

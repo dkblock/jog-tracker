@@ -21,14 +21,7 @@
       "commandName": "Project",
       "launchUrl": "weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConnectionStrings__Default": "Data Source=DESKTOP-MFH3UBT;Initial Catalog=jogtracker;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-        "Client__Url": "http://localhost:8080",
-        "Identity__Secret": "JOG_TRACKER_SECRET",
-        "Identity__AccessTokenLifetimeInMinutes": "30",
-        "Identity__RefreshTokenLifetimeInDays": "30",
-        "Identity__AdministratorUsername": "administrator",
-        "Identity__AdministratorPassword": "administrator"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5000"
     }

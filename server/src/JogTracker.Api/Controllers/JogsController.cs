@@ -1,6 +1,5 @@
 ﻿using JogTracker.Common.Extensions;
-using JogTracker.Models.Commands.Jogs;
-using JogTracker.Models.Queries.Jogs;
+using JogTracker.Models.Requests.Jogs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +32,7 @@ namespace JogTracker.Api.Controllers
 
         [HttpGet]
         [Route("{jogId}")]
-        public IActionResult GetJog([FromRoute] int jogId)
+        public IActionResult GetJog()
         {
             return Ok();
         }
@@ -47,7 +46,7 @@ namespace JogTracker.Api.Controllers
             [FromQuery] bool onlyOwn = false,
             [FromQuery] int pageIndex = 1,
             [FromQuery] int pageSize = 20,
-            [FromQuery] JogSortBy sortBy = JogSortBy.Date,
+            [FromQuery] JogsSortBy sortBy = JogsSortBy.Date,
             [FromQuery] bool desc = true)
         {
             var query = new GetJogsQuery(searchText, dateFrom, dateTo, onlyOwn, pageSize, pageIndex, sortBy, desc, User.GetUserId());

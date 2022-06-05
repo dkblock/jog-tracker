@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using JogTracker.Common.Helpers;
 using JogTracker.Entities;
-using JogTracker.Models.Commands.Jogs;
 using JogTracker.Models.DTO.Jogs;
+using JogTracker.Models.Requests.Jogs;
 using System;
 
 namespace JogTracker.Mappers

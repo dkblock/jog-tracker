@@ -1,6 +1,15 @@
 import { authenticate, login, logout, register } from './account';
 import { createJog, deleteJog, fetchJogs, updateJog } from './jogs';
-import { hideModal, showModal, showCreateJogModal, showDeleteJogModal, showUpdateJogModal } from './modal';
+import { deleteUser, fetchUsers, updateUser } from './users';
+import {
+  hideModal,
+  showModal,
+  showCreateJogModal,
+  showDeleteJogModal,
+  showUpdateJogModal,
+  showDeleteUserModal,
+  showUpdateUserModal,
+} from './modal';
 
 export {
   authenticate,
@@ -11,9 +20,14 @@ export {
   deleteJog,
   fetchJogs,
   updateJog,
+  deleteUser,
+  fetchUsers,
+  updateUser,
   hideModal,
   showModal,
   showCreateJogModal,
   showDeleteJogModal,
   showUpdateJogModal,
+  showDeleteUserModal,
+  showUpdateUserModal,
 };

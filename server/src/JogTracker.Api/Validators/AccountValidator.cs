@@ -1,5 +1,6 @@
 ﻿using JogTracker.Common.Extensions;
-using JogTracker.Models.Commands.Account;
+using JogTracker.Models.Requests.Account;
+using JogTracker.Models.Requests.Users;
 using JogTracker.Models.Validation;
 using JogTracker.Repository;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace JogTracker.Api.Validators
     {
         Task<ValidationResult> ValidateOnRegister(RegisterCommand payload);
         Task<ValidationResult> ValidateOnLogin(LoginCommand payload);
+        IEnumerable<ValidationError> ValidateName(UserNamePayload payload);
     }
 
     public class AccountValidator : IAccountValidator
@@ -91,7 +93,7 @@ namespace JogTracker.Api.Validators
             return validationErrors;
         }
 
-        private IEnumerable<ValidationError> ValidateName(RegisterCommand payload)
+        public IEnumerable<ValidationError> ValidateName(UserNamePayload payload)
         {
             var validationErrors = new List<ValidationError>();
 

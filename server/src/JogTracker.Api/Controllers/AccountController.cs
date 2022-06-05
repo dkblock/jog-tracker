@@ -1,5 +1,5 @@
 ﻿using JogTracker.Common.Extensions;
-using JogTracker.Models.Commands.Account;
+using JogTracker.Models.Requests.Account;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
