@@ -28,7 +28,7 @@ services:
       - Identity__AdministratorUsername=${IDENTITY_ADMIN_USERNAME}
       - Identity__AdministratorPassword=${IDENTITY_ADMIN_PASSWORD}
       - Identity__Secret=${IDENTITY_SECRET}
-      - Identity__AccessTokenLifetimeInMinutes=${IDENTITY_ACCESS_TOKEN_LIFETIME_IN_SECONDS}
+      - Identity__AccessTokenLifetimeInMinutes=${IDENTITY_ACCESS_TOKEN_LIFETIME_IN_MINUTES}
       - Identity__RefreshTokenLifetimeInDays=${IDENTITY_REFRESH_TOKEN_LIFETIME_IN_DAYS}
     networks:
       - jog-tracker-network
