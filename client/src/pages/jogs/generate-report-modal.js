@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { generateReport } from '../../store/actions';
+import { generateReport, refreshReport } from '../../redux/actions';
 import { useCurrentUser } from '../../hooks';
-import { SELECTORS } from '../../store';
+import { SELECTORS } from '../../redux';
 import JogsReport from './jogs-report';
 import { Button, DateRangePicker, Modal, Switch } from '../../components';
 
@@ -22,13 +22,18 @@ const GenerateReportModal = ({ onClose }) => {
     setDateTo(endValue);
   };
 
+  const handleClose = () => {
+    dispatch(refreshReport());
+    onClose();
+  };
+
   return (
     <Modal.Create
       title="Report"
       createButtonText="OK"
       size={Modal.sizes.large}
-      onClose={onClose}
-      onCreate={onClose}
+      onClose={handleClose}
+      onCreate={handleClose}
       actions={
         report && (
           <Switch

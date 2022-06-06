@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import roles from '../constants/roles';
-import { SELECTORS } from '../store';
+import { SELECTORS } from '../redux';
 
 const useCurrentUser = () => {
   const currentUser = useSelector(SELECTORS.ACCOUNT.getCurrentUser);

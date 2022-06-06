@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
 import Popover from '@mui/material/Popover';
 
-import { showCreateJogModal, showGenerateReportModal } from '../../store/actions';
+import { showCreateJogModal, showGenerateReportModal } from '../../redux/actions';
 import { Button, DateRangePicker, Icon, IconButton, Switch, Table, TextField, Tooltip } from '../../components';
 
 const JogsListToolbar = ({

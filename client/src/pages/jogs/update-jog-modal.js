@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { updateJog } from '../../store/actions';
+import { updateJog } from '../../redux/actions';
 import JogForm from './jog-form';
 
 const UpdateJogModal = ({ jog, onClose }) => {

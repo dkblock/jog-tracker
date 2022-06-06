@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { accountService } from '../../api';
 import statusCode from '../../utils/status-code-reader';
@@ -9,6 +9,8 @@ import {
   setAccessToken,
   setRefreshToken,
 } from '../../utils/local-storage-manager';
+
+export const openSignPage = createAction('openSignPage');
 
 export const authenticate = createAsyncThunk('authenticate', async () => {
   const response = await accountService.authenticate();

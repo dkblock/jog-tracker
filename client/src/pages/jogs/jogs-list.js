@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchJogs, showDeleteJogModal, showUpdateJogModal } from '../../store/actions';
+import { fetchJogs, showDeleteJogModal, showUpdateJogModal } from '../../redux/actions';
 import { useCurrentUser } from '../../hooks';
-import { SELECTORS } from '../../store';
+import { SELECTORS } from '../../redux';
 import { normalizeTime } from '../../utils/time';
 import JogsListToolbar from './jogs-list-toolbar';
 import { Avatar, Icon, Table } from '../../components';

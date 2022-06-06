@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteJog } from '../../store/actions';
-import { SELECTORS } from '../../store';
+import { deleteJog } from '../../redux/actions';
+import { SELECTORS } from '../../redux';
 import { Modal } from '../../components';
 
 const DeleteJogModal = ({ jog, onClose }) => {

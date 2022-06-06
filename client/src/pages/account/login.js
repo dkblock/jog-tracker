@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { login } from '../../store/actions';
+import { login, openSignPage } from '../../redux/actions';
 import { useCurrentUser } from '../../hooks';
 import accountValidator from '../../utils/validation/account-validator';
-import { SELECTORS } from '../../store';
+import { SELECTORS } from '../../redux';
 import { Button, Paper, Route, TextField } from '../../components';
 
 const Login = () => {
@@ -16,6 +16,10 @@ const Login = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    dispatch(openSignPage());
+  }, []);
 
   useEffect(() => {
     setErrors({ ...errors, ...serverErrors });

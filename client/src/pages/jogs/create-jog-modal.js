@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createJog } from '../../store/actions';
+import { createJog } from '../../redux/actions';
 import JogForm from './jog-form';
 
 const CreateJogModal = ({ onClose }) => {

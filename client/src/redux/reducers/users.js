@@ -69,7 +69,9 @@ const usersReducer = createSlice({
       onFulfilledDefault(state, hasError, 'isSaving');
 
       if (!hasError) {
-        state.users = state.users.map((user) => (user.id === updatedUser.id ? updatedUser : user));
+        state.users = state.users.map((user) =>
+          user.id === updatedUser.id ? { ...updatedUser, totalJogs: user.totalJogs } : user,
+        );
       } else {
         state.validationErrors = validationErrors;
       }

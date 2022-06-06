@@ -2,7 +2,7 @@ import config from '../config';
 import qs from 'qs';
 
 const buildUrl = (path, params = null) => {
-  const url = `${config.baseUrl}/${path}`;
+  const url = `${config.serverUrl}/${path}`;
   return params ? `${url}?${qs.stringify(params)}` : url;
 };
 

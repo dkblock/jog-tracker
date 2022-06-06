@@ -4,7 +4,7 @@ import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
-import { logout } from '../../store/actions';
+import { logout } from '../../redux/actions';
 import { useCurrentUser } from '../../hooks';
 import { navigateToLogin, navigateToRegister } from '../../utils/navigator';
 import { Avatar, Button, Icon, Loader } from '../../components';

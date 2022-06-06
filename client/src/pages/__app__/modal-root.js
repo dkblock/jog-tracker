@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { hideModal } from '../../store/actions';
-import { SELECTORS } from '../../store';
+import { hideModal } from '../../redux/actions';
+import { SELECTORS } from '../../redux';
 import modalTypes from '../../constants/modal-types';
 
 import CreateJogModal from '../jogs/create-jog-modal';

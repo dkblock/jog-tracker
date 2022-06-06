@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteUser } from '../../store/actions';
-import { SELECTORS } from '../../store';
+import { deleteUser } from '../../redux/actions';
+import { SELECTORS } from '../../redux';
 import { Modal } from '../../components';
 
 const DeleteUserModal = ({ user, onClose }) => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateUser } from '../../store/actions';
+import { updateUser } from '../../redux/actions';
 import { useCurrentUser } from '../../hooks';
-import { SELECTORS } from '../../store';
+import { SELECTORS } from '../../redux';
 import roles from '../../constants/roles';
 import { Dropdown, Modal, TextField } from '../../components';
 

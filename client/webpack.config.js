@@ -1,8 +1,9 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-module.exports = () => ({
+module.exports = {
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, '/dist'),
@@ -38,8 +39,11 @@ module.exports = () => ({
     new CopyPlugin({
       patterns: [{ from: 'public', to: 'public' }],
     }),
+    new webpack.DefinePlugin({
+      'process.env.SERVER_URL': JSON.stringify(process.env.SERVER_URL),
+    }),
   ],
   resolve: {
     extensions: ['.js', '.scss'],
   },
-});
+};

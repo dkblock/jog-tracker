@@ -2,7 +2,7 @@ import React from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 
-import { store, history } from '../../store';
+import { store, history } from '../../redux';
 import AppContent from './app-content';
 import AppHeader from './app-header';
 

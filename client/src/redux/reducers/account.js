@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { authenticate, login, logout, register } from '../actions';
+import { authenticate, login, logout, openSignPage, register } from '../actions';
 import { getAccessToken } from '../../utils/local-storage-manager';
 
 const initialState = {
@@ -16,6 +16,10 @@ const accountReducer = createSlice({
   name: 'ACCOUNT',
   initialState: initialState,
   extraReducers: {
+    [openSignPage]: (state) => {
+      state.validationErrors = {};
+    },
+
     [authenticate.pending]: (state) => {
       onPending(state, 'isFetching');
     },

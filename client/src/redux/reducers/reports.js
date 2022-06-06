@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { onFulfilledDefault, onPendingDefault, onRejectedDefault } from './defaults';
-import { generateReport } from '../actions';
+import { generateReport, refreshReport } from '../actions';
 
 const initialState = {
   report: null,
   hasError: false,
-
   isFetching: false,
-  isSaving: false,
 };
 
 const reportsReducer = createSlice({
@@ -25,6 +23,12 @@ const reportsReducer = createSlice({
     [generateReport.rejected]: (state) => {
       onRejectedDefault(state);
       state.report = null;
+    },
+
+    [refreshReport]: (state) => {
+      state.report = null;
+      state.hasError = false;
+      state.isFetching = false;
     },
   },
 }).reducer;

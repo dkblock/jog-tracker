@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchUsers, showDeleteUserModal, showUpdateUserModal } from '../../store/actions';
+import { fetchUsers, showDeleteUserModal, showUpdateUserModal } from '../../redux/actions';
 import { useCurrentUser } from '../../hooks';
-import { SELECTORS } from '../../store';
+import { SELECTORS } from '../../redux';
 import roles from '../../constants/roles';
 import UsersListToolbar from './users-list-toolbar';
 import { Avatar, Icon, Table } from '../../components';

@@ -1,5 +1,6 @@
 ﻿using JogTracker.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace JogTracker.Api.Middleware
     public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next)
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -32,23 +35,31 @@ namespace JogTracker.Api.Middleware
 
         private async Task HandleException(HttpContext context, Exception exception)
         {
-            var statusCode = HttpStatusCode.InternalServerError;
-            var message = exception.Message;
-            var errors = new List<Error>();
-
-            if (exception is ApiException apiException)
+            try
             {
-                statusCode = apiException.StatusCode;
+                var statusCode = HttpStatusCode.InternalServerError;
+                var message = exception.Message;
+                var errors = new List<Error>();
 
-                if (apiException is BadRequestException badRequestException)
-                    errors = badRequestException.Errors.ToList();
+                if (exception is ApiException apiException)
+                {
+                    statusCode = apiException.StatusCode;
+
+                    if (apiException is BadRequestException badRequestException)
+                        errors = badRequestException.Errors.ToList();
+                }
+
+                var responseBody = JsonConvert.SerializeObject(new { errors, message });
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)statusCode;
+
+                _logger.LogError(message);
+                await context.Response.WriteAsync(responseBody);
             }
-
-            var responseBody = JsonConvert.SerializeObject(new { errors, message });
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)statusCode;
-
-            await context.Response.WriteAsync(responseBody);
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+            }
         }
     }
 }

@@ -22,12 +22,14 @@ namespace JogTracker.Database
             builder.Entity<UserEntity>()
                 .HasOne(u => u.RefreshToken)
                 .WithOne(t => t.User)
-                .HasForeignKey<RefreshTokenEntity>(t => t.UserId);
+                .HasForeignKey<RefreshTokenEntity>(t => t.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<JogEntity>()
-                .HasOne(j => j.User)
-                .WithMany(u => u.Jogs)
-                .HasForeignKey(j => j.UserId);
+            builder.Entity<UserEntity>()
+                .HasMany(u => u.Jogs)
+                .WithOne(j => j.User)
+                .HasForeignKey(j => j.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }        
     }
 }

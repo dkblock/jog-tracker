@@ -6,8 +6,14 @@
 
 .MuiTablePagination-root {
   overflow: hidden;
+  box-shadow: 0 -2px 3px -1px rgba(224, 224, 224, 1);
 
   p {
     font-weight: 700;
   }
+}
+
+.MuiTableSortLabel-root {
+  font-weight: 700 !important;
+  margin-right: 4px;
 }

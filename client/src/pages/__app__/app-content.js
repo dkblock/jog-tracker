@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch } from 'react-router-dom';
 
-import { authenticate } from '../../store/actions';
+import { authenticate } from '../../redux/actions';
 import { useCurrentUser } from '../../hooks';
 import Account from '../account';
 import Jogs from '../jogs';

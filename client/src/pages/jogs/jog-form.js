@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { TimeSpan } from 'timespan';
 
-import { SELECTORS } from '../../store';
+import { SELECTORS } from '../../redux';
 import { DatePicker, Modal, Switch, TextField } from '../../components';
 
 const JogForm = ({ distanceInM, distanceInKm, jogDate, jogTime, title, buttonText, onSubmit, onClose }) => {

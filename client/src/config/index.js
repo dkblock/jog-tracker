@@ -1,5 +1,10 @@
-const config = {
-  baseUrl: 'http://localhost:5000',
-};
+export default (() => {
+  const config = {
+    development: () => require('./config.development.json'),
+    production: () => ({
+      serverUrl: process.env.SERVER_URL,
+    }),
+  };
 
-export default config;
+  return config[process.env.NODE_ENV]();
+})();

@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  jog-tracker-db:
+    container_name: jog-tracker-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: on-failure
+    ports:
+      - "${DB_PORT}:1433"
+    networks:
+      - jog-tracker-network
+    volumes:
+      - jog-tracker-db-volume:/var/opt/mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
+      - SA_PASSWORD=${DB_PASS}
+
+  jog-tracker-server:
+    container_name: jog-tracker-server
+    restart: on-failure
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    environment:
+      - ConnectionStrings__Default=Server=${DB_HOST},${DB_PORT};Initial Catalog=${DB_NAME};User ID=${DB_USER};Password=${DB_PASS}
+      - Client__Url=${CLIENT_URL}
+      - Identity__AdministratorUsername=${IDENTITY_ADMIN_USERNAME}
+      - Identity__AdministratorPassword=${IDENTITY_ADMIN_PASSWORD}
+      - Identity__Secret=${IDENTITY_SECRET}
+      - Identity__AccessTokenLifetimeInMinutes=${IDENTITY_ACCESS_TOKEN_LIFETIME_IN_SECONDS}
+      - Identity__RefreshTokenLifetimeInDays=${IDENTITY_REFRESH_TOKEN_LIFETIME_IN_DAYS}
+    networks:
+      - jog-tracker-network
+    ports:
+      - "${SERVER_PORT}:80"
+    depends_on:
+      - jog-tracker-db
+
+  jog-tracker-client:
+    container_name: jog-tracker-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - SERVER_URL=${SERVER_URL}
+    restart: on-failure
+    networks:
+      - jog-tracker-network
+    ports:
+      - "${CLIENT_PORT}:3000"
+    depends_on:
+      - jog-tracker-server
+
+networks:
+  jog-tracker-network:
+
+volumes:
+  jog-tracker-db-volume:
