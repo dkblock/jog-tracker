@@ -15,11 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Identity", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Configuration", "src\JogTracker.Configuration\JogTracker.Configuration.csproj", "{1188A7AB-093E-4FC0-BB54-8A7C32626015}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Repository", "src\JogTracker.Repository\JogTracker.Repository.csproj", "{A2AB2148-E4F0-4DF6-9C51-DE097C2FA758}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Repository", "src\JogTracker.Repository\JogTracker.Repository.csproj", "{A2AB2148-E4F0-4DF6-9C51-DE097C2FA758}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Common", "src\JogTracker.Common\JogTracker.Common.csproj", "{93FF9606-5675-4F4D-87C4-17F53F5795DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Common", "src\JogTracker.Common\JogTracker.Common.csproj", "{93FF9606-5675-4F4D-87C4-17F53F5795DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Mappers", "src\JogTracker.Mappers\JogTracker.Mappers.csproj", "{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogTracker.Mappers", "src\JogTracker.Mappers\JogTracker.Mappers.csproj", "{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B65D0240-8768-4367-8BC8-62048C6A78C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogTracker.Api.UnitTests", "test\JogTracker.Api.UnitTests\JogTracker.Api.UnitTests.csproj", "{FEE6BB22-FA09-41A5-A1EB-9673AA6239F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,9 +67,16 @@ Global
 		{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BE49B5D-CFA5-4A5D-9996-FD029070D5FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEE6BB22-FA09-41A5-A1EB-9673AA6239F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEE6BB22-FA09-41A5-A1EB-9673AA6239F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEE6BB22-FA09-41A5-A1EB-9673AA6239F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEE6BB22-FA09-41A5-A1EB-9673AA6239F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FEE6BB22-FA09-41A5-A1EB-9673AA6239F9} = {B65D0240-8768-4367-8BC8-62048C6A78C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9F572C3-E5CC-4484-8267-0B5CBDAFCFBC}

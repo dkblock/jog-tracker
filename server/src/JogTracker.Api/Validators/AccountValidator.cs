@@ -13,7 +13,7 @@ namespace JogTracker.Api.Validators
     {
         Task<ValidationResult> ValidateOnRegister(RegisterCommand payload);
         Task<ValidationResult> ValidateOnLogin(LoginCommand payload);
-        IEnumerable<ValidationError> ValidateName(UserNamePayload payload);
+        ValidationResult ValidateName(UserNamePayload payload);
     }
 
     public class AccountValidator : IAccountValidator
@@ -30,7 +30,7 @@ namespace JogTracker.Api.Validators
             var validationErrors = new List<ValidationError>();
 
             validationErrors.AddRange(await ValidateUsername(payload));
-            validationErrors.AddRange(ValidateName(payload));
+            validationErrors.AddRange(ValidateName(payload).ValidationErrors);
             validationErrors.AddRange(ValidatePasswords(payload));
 
             return new ValidationResult
@@ -93,7 +93,7 @@ namespace JogTracker.Api.Validators
             return validationErrors;
         }
 
-        public IEnumerable<ValidationError> ValidateName(UserNamePayload payload)
+        public ValidationResult ValidateName(UserNamePayload payload)
         {
             var validationErrors = new List<ValidationError>();
 
@@ -111,7 +111,11 @@ namespace JogTracker.Api.Validators
                     Message = "Enter last name"
                 });
 
-            return validationErrors;
+            return new ValidationResult
+            {
+                IsValid = !validationErrors.Any(),
+                ValidationErrors = validationErrors
+            };
         }
 
         private IEnumerable<ValidationError> ValidatePasswords(RegisterCommand payload)
@@ -121,28 +125,28 @@ namespace JogTracker.Api.Validators
             if (string.IsNullOrEmpty(payload.Password))
                 validationErrors.Add(new ValidationError
                 {
-                    Field = payload.Password.ToLowerCamelCase(),
+                    Field = nameof(payload.Password).ToLowerCamelCase(),
                     Message = "Enter password"
                 });
 
             if (payload.Password.Length < 4)
                 validationErrors.Add(new ValidationError
                 {
-                    Field = payload.Password.ToLowerCamelCase(),
+                    Field = nameof(payload.Password).ToLowerCamelCase(),
                     Message = "The minimum length is 4 characters"
                 });
 
             if (string.IsNullOrEmpty(payload.ConfirmPassword))
                 validationErrors.Add(new ValidationError
                 {
-                    Field = payload.ConfirmPassword.ToLowerCamelCase(),
+                    Field = nameof(payload.ConfirmPassword).ToLowerCamelCase(),
                     Message = "Enter password"
                 });
 
             if (payload.Password != payload.ConfirmPassword)
                 validationErrors.Add(new ValidationError
                 {
-                    Field = payload.ConfirmPassword.ToLowerCamelCase(),
+                    Field = nameof(payload.ConfirmPassword).ToLowerCamelCase(),
                     Message = "Passwords don't match"
                 });
 

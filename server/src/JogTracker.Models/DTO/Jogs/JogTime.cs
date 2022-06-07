@@ -2,6 +2,8 @@
 {
     public class JogTime
     {
+        public JogTime() { }
+
         public JogTime(int hours, int minutes, int seconds)
         {
             Hours = hours;

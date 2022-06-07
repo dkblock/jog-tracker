@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JogTracker.Api.Validators;
 using JogTracker.Common.Exceptions;
 using JogTracker.Models.DTO.Users;
 using JogTracker.Models.Requests.Users;
@@ -11,11 +12,13 @@ namespace JogTracker.Api.Handlers.Users
 {
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, User>
     {
+        private readonly IAccountValidator _accountValidator;
         private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;
 
-        public UpdateUserCommandHandler(IUsersRepository usersRepository, IMapper mapper)
+        public UpdateUserCommandHandler(IAccountValidator accountValidator, IUsersRepository usersRepository, IMapper mapper)
         {
+            _accountValidator = accountValidator;
             _usersRepository = usersRepository;
             _mapper = mapper;
         }
@@ -24,6 +27,11 @@ namespace JogTracker.Api.Handlers.Users
         {
             if (!await _usersRepository.IsExistById(payload.Id))
                 throw new NotFoundException();
+
+            var validationResult = _accountValidator.ValidateName(payload);
+
+            if (!validationResult.IsValid)
+                throw new BadRequestException(validationResult.ValidationErrors);
 
             var user = await _usersRepository.GetById(payload.Id);
             user.FirstName = payload.FirstName;
